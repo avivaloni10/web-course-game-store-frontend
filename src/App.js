@@ -1,7 +1,7 @@
 import React from "react";
 import './App.css';
 
-import Dashboard from "./components/dashboard/Dashboard";
+import Dashboard from "./components/dashboard";
 import SignUnSide from "./components/sign-up/SignUp";
 import SignInSide from "./components/sign-in/SignIn";
 import ForgotPassword from "./components/forgot-password/ForgotPassword";
