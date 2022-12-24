@@ -2,9 +2,9 @@ import React from "react";
 import './App.css';
 
 import Dashboard from "./components/dashboard";
-import SignUnSide from "./components/sign-up/SignUp";
-import SignInSide from "./components/sign-in/SignIn";
-import ForgotPassword from "./components/forgot-password/ForgotPassword";
+import SignUn from "./components/sign-up";
+import SignIn from "./components/sign-in";
+import ForgotPassword from "./components/forgot-password";
 
 import {AuthProvider} from "./context/AuthContext";
 
@@ -15,8 +15,8 @@ function App() {
         <AuthProvider>
             <Routes>
                 <Route exact path="/" element={<Dashboard/>}/>
-                <Route path="/signup" element={<SignUnSide/>}/>
-                <Route path="/signin" element={<SignInSide/>}/>
+                <Route path="/signup" element={<SignUn/>}/>
+                <Route path="/signin" element={<SignIn/>}/>
                 <Route path="/forgot-password" element={<ForgotPassword/>}/>
             </Routes>
         </AuthProvider>

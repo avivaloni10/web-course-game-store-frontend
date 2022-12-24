@@ -1,11 +1,6 @@
-import "./index.css";
-
-import {useEffect} from "react";
 import {ThemeProvider} from "@mui/system";
 import {Container, Typography, Box, Stack} from "@mui/material";
-
 import {UIProvider} from "../../context/ui";
-
 import Appbar from "./appbar";
 import theme from "../../styles/theme";
 import Banner from "./banner";
@@ -15,18 +10,9 @@ import Promotions from "./promotions";
 import SearchBox from "./search";
 
 export default function Dashboard() {
-    useEffect(() => {
-        document.title = "React Material UI - Home";
-    }, []);
     return (
         <ThemeProvider theme={theme}>
-            <Container
-                disableGutters
-                maxWidth="xl"
-                sx={{
-                    background: "#fff",
-                }}
-            >
+            <Container disableGutters maxWidth="xl" sx={{background: "#fff"}}>
                 <Stack>
                     <UIProvider>
                         <Appbar/>

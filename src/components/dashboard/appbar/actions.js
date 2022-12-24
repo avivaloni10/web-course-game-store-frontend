@@ -5,8 +5,20 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 
 import {ActionIconsContainerDesktop, MyList} from "../../../styles/appbar";
 import {Colors} from "../../../styles/theme";
+import {useAuth} from "../../../context/AuthContext";
+import {useNavigate} from "react-router-dom";
 
 export default function Actions() {
+    const { signout, isUserSignedIn } = useAuth()
+    const navigate = useNavigate()
+
+    const onPersonIconClick = () => {
+        if (isUserSignedIn()) {
+            signout()
+        }
+        navigate("/signin");
+    }
+
     return (
         <ActionIconsContainerDesktop>
             <MyList type="row">
@@ -54,7 +66,7 @@ export default function Actions() {
                             color: Colors.secondary,
                         }}
                     >
-                        <PersonIcon/>
+                        <PersonIcon onClick={onPersonIconClick}/>
                     </ListItemIcon>
                 </ListItemButton>
                 <Divider orientation="vertical" flexItem/>

@@ -31,7 +31,6 @@ export function AuthProvider({ children }) {
     }
 
     useEffect(() => {
-        debugger;
         return auth.onAuthStateChanged(user => {
             setCurrentUser(user)
         });
