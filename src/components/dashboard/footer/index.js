@@ -11,6 +11,7 @@ import {SubscribeTf, FooterTitle} from "../../../styles/footer";
 export default function Footer() {
     return (
         <Box
+            id="footer"
             sx={{
                 background: Colors.shaft,
                 color: Colors.white,

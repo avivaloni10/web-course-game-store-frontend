@@ -9,6 +9,7 @@ import ForgotPassword from "./components/forgot-password";
 import {AuthProvider} from "./context/AuthContext";
 
 import {BrowserRouter as Router, Routes, Route} from "react-router-dom";
+import Temp from "./components/temp";
 
 function App() {
     return <Router>
@@ -18,6 +19,7 @@ function App() {
                 <Route path="/signup" element={<SignUn/>}/>
                 <Route path="/signin" element={<SignIn/>}/>
                 <Route path="/forgot-password" element={<ForgotPassword/>}/>
+                <Route path="/categories" element={<Temp/>}/>
             </Routes>
         </AuthProvider>
     </Router>

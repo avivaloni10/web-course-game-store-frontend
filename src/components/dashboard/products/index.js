@@ -12,7 +12,7 @@ export default function Products() {
         </Grid>
     ));
     return (
-        <Container>
+        <Container id="products">
             <Grid
                 container
                 spacing={{xs: 2, md: 3}}

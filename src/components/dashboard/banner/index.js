@@ -8,6 +8,7 @@ import {
     BannerShopButton,
     BannerTitle
 } from "../../../styles/banner";
+import {smoothScrollToId} from "../../../utils";
 
 export default function Banner() {
     return (
@@ -25,7 +26,7 @@ export default function Banner() {
                     What education does to your career, games do to your overall personality.
                 </BannerDescription>
 
-                <BannerShopButton color="primary">Shop Now</BannerShopButton>
+                <BannerShopButton color="primary" onClick={() => smoothScrollToId('products')}>Shop Now</BannerShopButton>
             </BannerContent>
         </BannerContainer>
     );
