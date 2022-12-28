@@ -2,7 +2,7 @@ import {ListItemButton, ListItemIcon} from "@mui/material";
 
 import SearchIcon from "@mui/icons-material/Search";
 
-import {AppbarContainer, AppbarHeader, AppbarListItemText, MyList} from "../../../styles/appbar";
+import {AppbarContainer, AppbarHeader, AppbarListItemText, AppbarList} from "../../../styles/appbar";
 
 import {useUIContext} from "../../../context/ui";
 import {useNavigate} from "react-router-dom";
@@ -17,7 +17,7 @@ export default function Appbar() {
     return (
         <AppbarContainer>
             <AppbarHeader variant="h4">Aloni Games</AppbarHeader>
-            <MyList type="row">
+            <AppbarList type="row">
                 <AppbarListItemText primary="Home" onClick={() => navigate("/")}/>
                 <AppbarListItemText primary="Categories" onClick={() => navigate("/categories")}/>
                 <AppbarListItemText primary="Products" onClick={() => smoothScrollToId('products')}/>
@@ -28,7 +28,7 @@ export default function Appbar() {
                         <SearchIcon/>
                     </ListItemIcon>
                 </ListItemButton>
-            </MyList>
+            </AppbarList>
             <Actions/>
         </AppbarContainer>
     );

@@ -1,10 +1,10 @@
 import HomePage from "../page-templates/home-page";
 
-export default function Dashboard() {
-
+export default function Cart() {
     return (
         <HomePage
-            productsTitle="Out Products"
+            productsTitle="Cart"
+            hideBanner
         />
     );
 }

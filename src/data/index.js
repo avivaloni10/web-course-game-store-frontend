@@ -5,6 +5,7 @@ export const products = [
         price: 129.99,
         availability: 5,
         description: "A big adventure",
+        isInWishList: true,
         image: "/images/products/game_01.png"
     },
     {
@@ -13,6 +14,7 @@ export const products = [
         price: 199.99,
         availability: 5,
         description: "16+",
+        isInWishList: false,
         image: "/images/products/game_02.png"
     },
     {
@@ -21,6 +23,7 @@ export const products = [
         price: 189.99,
         availability: 5,
         description: "Ultimate",
+        isInWishList: false,
         image: "/images/products/game_03.png"
     },
     {
@@ -29,6 +32,7 @@ export const products = [
         price: 129.99,
         availability: 5,
         description: "Black ops cold war",
+        isInWishList: false,
         image: "/images/products/game_04.png"
     },
     {
@@ -37,6 +41,7 @@ export const products = [
         price: 399.99,
         availability: 5,
         description: "12+",
+        isInWishList: true,
         image: "/images/products/game_05.png"
     },
     {
@@ -45,6 +50,7 @@ export const products = [
         price: 689.99,
         availability: 5,
         description: "Great soccer game",
+        isInWishList: true,
         image: "/images/products/game_06.png"
     }
 ]

@@ -17,6 +17,7 @@ import useDialogModal from "../../../hooks/useDialogModal";
 
 import ProductDetail from "../product-detail";
 import ProductMeta from "./ProductMeta";
+import {Colors} from "../../../styles/theme";
 
 export default function SingleProduct({product}) {
     const [ProductDetailDialog, showProductDetailDialog] =
@@ -34,8 +35,10 @@ export default function SingleProduct({product}) {
         <>
             <Product onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
                 <ProductImage src={product.image}/>
-                <ProductFavButton isfav={0}>
-                    <FavoriteIcon/>
+                <ProductFavButton isfav={0} onClick={() => product.isInWishList = !product.isInWishList}>
+                    <Tooltip placement="left" title="add to wishlist">
+                        {product.isInWishList ? <FavoriteIcon sx={{color: Colors.danger}}/> : <FavoriteIcon/>}
+                    </Tooltip>
                 </ProductFavButton>
                 {(showOptions) && (
                     <ProductAddToCart show={showOptions} variant="contained">

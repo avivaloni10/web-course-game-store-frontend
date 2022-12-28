@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {useAuth} from "../../context/AuthContext";
-import AuthPage from "../common/auth-page";
+import AuthPage from "../page-templates/auth-page";
 
 export default function ForgotPassword() {
     const {resetPassword} = useAuth()

@@ -35,7 +35,7 @@ export const ActionIconsContainerDesktop = styled(Box)(() => ({
     flexGrow: 0,
 }));
 
-export const MyList = styled(List)(({type}) => ({
+export const AppbarList = styled(List)(({type}) => ({
     display: type === "row" ? "flex" : "block",
     flexGrow: 3,
     justifyContent: "center",
