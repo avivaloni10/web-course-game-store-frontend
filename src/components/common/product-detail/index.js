@@ -1,7 +1,7 @@
 import {Dialog, DialogTitle, Slide, Box, IconButton, DialogContent, Typography, Button} from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import styled from "@emotion/styled";
-import IncDec from "../ui/incdec";
+import ProductCount from "../product-count";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import InstagramIcon from "@mui/icons-material/Instagram";
@@ -57,7 +57,7 @@ export default function ProductDetail({open, onClose, product}) {
                     </Product>
                     <ProductDetailInfoWrapper>
                         <Typography variant="subtitle">SKU: 123</Typography>
-                        <Typography variant="subtitle">Availability: 5 in stock</Typography>
+                        <Typography variant="subtitle">Availability: {product.availability} in stock</Typography>
                         <Typography sx={{lineHeight: 2}} variant="h4">
                             {product.name}
                         </Typography>
@@ -70,7 +70,7 @@ export default function ProductDetail({open, onClose, product}) {
                             alignItems="center"
                             justifyContent="space-between"
                         >
-                            <IncDec/>
+                            <ProductCount min={1} max={Math.min(product.availability, 9)}/>
                             <Button variant="contained">Add to Cart</Button>
                         </Box>
                         <Box

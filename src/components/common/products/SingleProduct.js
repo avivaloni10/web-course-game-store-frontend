@@ -15,7 +15,7 @@ import {
 
 import useDialogModal from "../../../hooks/useDialogModal";
 
-import ProductDetail from "../productdetail";
+import ProductDetail from "../product-detail";
 import ProductMeta from "./ProductMeta";
 
 export default function SingleProduct({product}) {

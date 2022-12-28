@@ -35,7 +35,7 @@ const SearchField = styled(TextField)(({theme}) => ({
     padding: "0 0 0 40px",
 }));
 
-export default function SearchBox() {
+export default function SearchBox({value, onSearch}) {
     const {showSearchBox, setShowSearchBox} = useUIContext();
 
     return (
@@ -46,6 +46,8 @@ export default function SearchBox() {
                     variant="standard"
                     fullWidth
                     placeholder="search..."
+                    value={value}
+                    onChange={event => onSearch(event.target.value)}
                 />
                 <IconButton>
                     <SearchIcon sx={{fontSize: {xs: '2rem', md: "3rem"}}} color="secondary"/>

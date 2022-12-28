@@ -5,12 +5,12 @@ import {Box} from "@mui/system";
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from "@mui/icons-material/Remove";
 
-import {Colors} from "../../../../styles/theme";
+import {Colors} from "../../../styles/theme";
 
-import {clamp} from "./clamp";
+import {defineBound} from "../../../utils";
 
-export default function IncDec() {
-    const clampV = clamp(1, 10);
+export default function ProductCount({min, max}) {
+    const limitItemCount = defineBound(min, max);
     const [value, setValue] = useState(1);
 
     return (
@@ -20,7 +20,7 @@ export default function IncDec() {
                     borderRadius: 0,
                     background: `${Colors.secondary}`,
                 }}
-                onClick={() => setValue(clampV(value - 1))}
+                onClick={() => setValue(limitItemCount(value - 1))}
             >
                 <RemoveIcon/>
             </IconButton>
@@ -38,7 +38,7 @@ export default function IncDec() {
                     borderRadius: 0,
                     background: `${Colors.secondary}`,
                 }}
-                onClick={() => setValue(clampV(value + 1))}
+                onClick={() => setValue(limitItemCount(value + 1))}
             >
                 <AddIcon/>
             </IconButton>
