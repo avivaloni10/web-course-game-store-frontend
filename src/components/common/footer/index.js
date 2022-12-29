@@ -8,7 +8,12 @@ import SendIcon from "@mui/icons-material/Send";
 import {Colors} from "../../../styles/theme";
 import {SubscribeTf, FooterTitle} from "../../../styles/footer";
 
-export default function Footer() {
+export default function Footer({setIsSnackbarOpen, setSnackbarMessage}) {
+    const onSubscribeClick = () => {
+        setSnackbarMessage("Thanks! We will never send you anything!");
+        setIsSnackbarOpen(true);
+    };
+
     return (
         <Box
             id="footer"
@@ -101,6 +106,7 @@ export default function Footer() {
                             startIcon={<SendIcon sx={{color: Colors.white}}/>}
                             sx={{mt: 4, mb: 4}}
                             variant="contained"
+                            onClick={onSubscribeClick}
                         >
                             Subscribe
                         </Button>

@@ -43,11 +43,16 @@ export default function HomePage({
                         </Box>
                         {hideProducts ? null :
                             <Products filter={filter}/>}
-                        {hideFooter ? null : <Footer/>}
+                        {hideFooter ? null :
+                            <Footer setIsSnackbarOpen={setIsSnackbarOpen} setSnackbarMessage={setSnackbarMessage}/>}
                     </UIProvider>
                 </Stack>
             </Container>
-            <Snackbar open={isSnackbarOpen} autoHideDuration={6000} onClose={() => setIsSnackbarOpen(false)}>
+            <Snackbar
+                anchorOrigin={{vertical: 'bottom', horizontal: 'right'}}
+                open={isSnackbarOpen}
+                autoHideDuration={3000}
+                onClose={() => setIsSnackbarOpen(false)}>
                 <Alert onClose={() => setIsSnackbarOpen(false)} severity="success" sx={{width: '100%'}}>
                     {snackbarMessage}
                 </Alert>

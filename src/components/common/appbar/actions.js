@@ -12,6 +12,22 @@ export default function Actions() {
     const {signout, isUserSignedIn} = useAuth()
     const navigate = useNavigate()
 
+    const onCartIconClick = () => {
+        if (!isUserSignedIn()) {
+            navigate("/signin")
+            return;
+        }
+        navigate("/cart");
+    }
+
+    const onFavoriteIconClick = () => {
+        if (!isUserSignedIn()) {
+            navigate("/signin")
+            return;
+        }
+        navigate("/wishlist");
+    }
+
     const onPersonIconClick = () => {
         if (isUserSignedIn()) {
             signout()
@@ -22,13 +38,13 @@ export default function Actions() {
     return (
         <ActionIconsContainerDesktop>
             <AppbarList type="row">
-                <ListItemButton sx={{justifyContent: "center"}} onClick={() => navigate("/cart")}>
+                <ListItemButton sx={{justifyContent: "center"}} onClick={onCartIconClick}>
                     <ListItemIcon sx={{display: "flex", justifyContent: "center", color: Colors.secondary}}>
                         <ShoppingCartIcon/>
                     </ListItemIcon>
                 </ListItemButton>
                 <Divider orientation="vertical" flexItem/>
-                <ListItemButton sx={{justifyContent: "center"}}  onClick={() => navigate("/wishlist")}>
+                <ListItemButton sx={{justifyContent: "center"}}  onClick={onFavoriteIconClick}>
                     <ListItemIcon sx={{display: "flex", justifyContent: "center", color: Colors.secondary}}>
                         <FavoriteIcon/>
                     </ListItemIcon>
