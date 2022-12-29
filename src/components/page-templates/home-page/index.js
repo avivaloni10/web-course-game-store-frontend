@@ -22,11 +22,17 @@ export default function HomePage({
     const [search, setSearch] = useState("");
     const [isSnackbarOpen, setIsSnackbarOpen] = useState(false);
     const [snackbarMessage, setSnackbarMessage] = useState(false);
+
     const filter = product => {
         if (productsFilter && !productsFilter(product)) {
             return false
         }
         return product.name.toLowerCase().includes(search.toLowerCase())
+    };
+
+    const notifyUser = message => {
+        setSnackbarMessage(message);
+        setIsSnackbarOpen(true);
     };
 
     return (
@@ -44,7 +50,7 @@ export default function HomePage({
                         {hideProducts ? null :
                             <Products filter={filter}/>}
                         {hideFooter ? null :
-                            <Footer setIsSnackbarOpen={setIsSnackbarOpen} setSnackbarMessage={setSnackbarMessage}/>}
+                            <Footer notifyUser={notifyUser}/>}
                     </UIProvider>
                 </Stack>
             </Container>

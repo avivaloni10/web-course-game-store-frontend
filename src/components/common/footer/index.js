@@ -8,12 +8,7 @@ import SendIcon from "@mui/icons-material/Send";
 import {Colors} from "../../../styles/theme";
 import {SubscribeTf, FooterTitle} from "../../../styles/footer";
 
-export default function Footer({setIsSnackbarOpen, setSnackbarMessage}) {
-    const onSubscribeClick = () => {
-        setSnackbarMessage("Thanks! We will never send you anything!");
-        setIsSnackbarOpen(true);
-    };
-
+export default function Footer({notifyUser}) {
     return (
         <Box
             id="footer"
@@ -24,8 +19,7 @@ export default function Footer({setIsSnackbarOpen, setSnackbarMessage}) {
                 pt: 12,
                 pb: 12,
                 fontSize: {xs: '12px', md: '14px'}
-            }}
-        >
+            }}>
             <Grid container spacing={2} justifyContent="center">
                 <Grid item md={6} lg={4}>
                     <FooterTitle variant="body1">About us</FooterTitle>
@@ -34,11 +28,7 @@ export default function Footer({setIsSnackbarOpen, setSnackbarMessage}) {
                         successfully.
                     </Typography>
                     <Box
-                        sx={{
-                            mt: 4,
-                            color: Colors.dove_gray,
-                        }}
-                    >
+                        sx={{mt: 4, color: Colors.dove_gray}}>
                         <FacebookIcon sx={{mr: 1}}/>
                         <TwitterIcon sx={{mr: 1}}/>
                         <InstagramIcon/>
@@ -97,16 +87,12 @@ export default function Footer({setIsSnackbarOpen, setSnackbarMessage}) {
                 <Grid item md={6} lg={4}>
                     <FooterTitle variant="body1">newsletter</FooterTitle>
                     <Stack>
-                        <SubscribeTf
-                            color="primary"
-                            label="Email address"
-                            variant="standard"
-                        />
+                        <SubscribeTf color="primary" label="Email address" variant="standard"/>
                         <Button
                             startIcon={<SendIcon sx={{color: Colors.white}}/>}
                             sx={{mt: 4, mb: 4}}
                             variant="contained"
-                            onClick={onSubscribeClick}
+                            onClick={() => notifyUser("Thanks! We will never send you anything!")}
                         >
                             Subscribe
                         </Button>
