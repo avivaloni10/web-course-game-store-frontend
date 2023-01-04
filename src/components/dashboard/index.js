@@ -4,7 +4,7 @@ export default function Dashboard() {
 
     return (
         <HomePage
-            productsTitle="Out Products"
+            productsTitle="Our Products"
         />
     );
 }

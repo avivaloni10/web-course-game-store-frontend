@@ -1,12 +1,24 @@
+import {useEffect, useState} from "react";
+
 import {Container, Grid} from "@mui/material";
 
-import {products} from "../../../data";
-
 import SingleProduct from "./SingleProduct";
+import {getGames} from "../../../services";
 
 export default function Products({filter}) {
+    const [games, setGames] = useState([]);
+    const [showedGamesLimit, setShowedGamesLimit] = useState(12);
 
-    const renderProducts = products.map((product) => {
+    useEffect(() => {
+        async function fetchGames() {
+            const gs = await getGames()
+            console.log("gs:", gs)
+            setGames(gs);
+        }
+        fetchGames();
+    }, [])
+
+    const renderProducts = games.map((product) => {
         if (filter && !filter(product)) {
             return null;
         }
@@ -16,7 +28,7 @@ export default function Products({filter}) {
                 {<SingleProduct product={product}/>}
             </Grid>
         );
-    });
+    }).slice(0, showedGamesLimit);
 
     return (
         <Container id="products">

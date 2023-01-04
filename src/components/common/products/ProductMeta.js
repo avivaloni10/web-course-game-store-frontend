@@ -1,14 +1,22 @@
-import {Typography} from "@mui/material";
+import {Tooltip, Typography} from "@mui/material";
 
 import {ProductMetaWrapper} from "../../../styles/product";
 
-export default function ProductMeta({product, matches}) {
+export default function ProductMeta({product}) {
     return (
         <ProductMetaWrapper>
-            <Typography variant={matches ? "h6" : "h5"} lineHeight={2}>
-                {product.name}
-            </Typography>
-            <Typography variant={matches ? "caption" : "body1"}>
+            <Tooltip placement="top" title={product.name}>
+
+                <Typography sx={{
+                    display: '-webkit-box',
+                    overflow: 'hidden',
+                    WebkitBoxOrient: 'vertical',
+                    WebkitLineClamp: 1
+                }} variant={"h6"} lineHeight={2}>
+                    {product.name}
+                </Typography>
+            </Tooltip>
+            <Typography variant={"body1"}>
                 ${product.price}
             </Typography>
         </ProductMetaWrapper>

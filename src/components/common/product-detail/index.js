@@ -53,7 +53,7 @@ export default function ProductDetail({open, onClose, product}) {
             <DialogContent>
                 <ProductDetailWrapper display={"flex"} flexDirection={"row"}>
                     <Product sx={{mr: 4}}>
-                        <ProductImage src={product.image}/>
+                        <ProductImage src={product.cover}/>
                     </Product>
                     <ProductDetailInfoWrapper>
                         <Typography variant="subtitle">SKU: 123</Typography>
