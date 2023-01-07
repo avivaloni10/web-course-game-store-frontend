@@ -9,6 +9,10 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 
 import {Colors} from "../../../styles/theme";
 import {Product, ProductImage} from "../../../styles/product";
+import {useAuth} from "../../../context/AuthContext";
+import {useNavigate} from "react-router-dom";
+import { updateCartProductAddAmount } from "../../../utils";
+import { useRef } from "react";
 
 function SlideTransition(props) {
     return <Slide direction="down" {...props} />;
@@ -27,6 +31,19 @@ const ProductDetailInfoWrapper = styled(Box)(() => ({
 }));
 
 export default function ProductDetail({open, onClose, product}) {
+    const {isUserSignedIn, getToken} = useAuth();
+    const amountToAdd = useRef(1);
+    const navigate = useNavigate()
+
+    const onAddToCart = async (product) => {
+        if (!isUserSignedIn()) {
+          navigate("/signin");
+          return;
+        }
+        const authToken = await getToken();
+        await updateCartProductAddAmount(authToken, product, amountToAdd.current);
+      };
+
     return (
         <Dialog
             TransitionComponent={SlideTransition}
@@ -70,8 +87,8 @@ export default function ProductDetail({open, onClose, product}) {
                             alignItems="center"
                             justifyContent="space-between"
                         >
-                            <ProductCount min={1} max={Math.min(product.availability, 9)}/>
-                            <Button variant="contained">Add to Cart</Button>
+                            <ProductCount min={1} max={Math.min(product.availability, 9)} amountRef={amountToAdd}/>
+                            <Button variant="contained" onClick={() => onAddToCart(product)}>Add to Cart</Button>
                         </Box>
                         <Box
                             display="flex"

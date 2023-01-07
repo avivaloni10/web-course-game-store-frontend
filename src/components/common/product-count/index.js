@@ -9,9 +9,10 @@ import {Colors} from "../../../styles/theme";
 
 import {defineBound} from "../../../utils";
 
-export default function ProductCount({min, max}) {
+export default function ProductCount({min, max, amountRef}) {
     const limitItemCount = defineBound(min, max);
     const [value, setValue] = useState(1);
+    amountRef.current = value;
 
     return (
         <Box display="flex">

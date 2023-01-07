@@ -18,6 +18,10 @@ export function AuthProvider({ children }) {
         return auth.signInWithEmailAndPassword(email, password)
     }
 
+    function getToken() {
+        return isUserSignedIn() ? auth.currentUser.getIdToken() : Promise.reject("No user signed in");
+    }
+
     function signout() {
         return auth.signOut()
     }
@@ -43,6 +47,7 @@ export function AuthProvider({ children }) {
         signout,
         resetPassword,
         isUserSignedIn,
+        getToken,
     }
 
     return (

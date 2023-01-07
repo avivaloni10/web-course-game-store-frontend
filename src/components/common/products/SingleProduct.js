@@ -20,9 +20,10 @@ import ProductMeta from "./ProductMeta";
 import {Colors} from "../../../styles/theme";
 import {useAuth} from "../../../context/AuthContext";
 import {useNavigate} from "react-router-dom";
+import { updateCartProductAddAmount } from "../../../utils";
 
 export default function SingleProduct({product}) {
-    const {isUserSignedIn} = useAuth()
+    const {isUserSignedIn, getToken} = useAuth();
     const navigate = useNavigate()
     const [ProductDetailDialog, showProductDetailDialog] = useDialogModal(ProductDetail);
     const [showOptions, setShowOptions] = useState(false);
@@ -34,13 +35,14 @@ export default function SingleProduct({product}) {
         setShowOptions(false);
     };
 
-    const onAddToCart = product => {
-        if (!isUserSignedIn()) {
-            navigate("/signin");
-            return;
-        }
-        console.log(product);
-    }
+    const onAddToCart = async (product) => {
+      if (!isUserSignedIn()) {
+        navigate("/signin");
+        return;
+      }
+      const authToken = await getToken();
+      await updateCartProductAddAmount(authToken, product, 1);
+    };
 
     return (
         <>

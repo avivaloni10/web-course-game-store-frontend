@@ -1,10 +1,9 @@
-import axios from "axios";
-
-const instance = axios.create({
-  baseURL: 'http://localhost:3002/',
-  timeout: 6000
-});
+import instance from "./axios-instance";
+import * as cart from "./cart";
 
 export const getGames = async () => {
-    return (await instance.get("games")).data;
-}
+  return (await instance.get("games")).data;
+};
+
+export const getOrCreateCart = cart.getOrCreateCart;
+export const updateCart = cart.updateCart;
