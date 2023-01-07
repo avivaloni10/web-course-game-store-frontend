@@ -11,7 +11,7 @@ import {Colors} from "../../../styles/theme";
 import {Product, ProductImage} from "../../../styles/product";
 import {useAuth} from "../../../context/AuthContext";
 import {useNavigate} from "react-router-dom";
-import { updateCartProductAddAmount } from "../../../utils";
+import { updateCartProductAmount } from "../../../utils";
 import { useRef } from "react";
 
 function SlideTransition(props) {
@@ -41,7 +41,7 @@ export default function ProductDetail({open, onClose, product}) {
           return;
         }
         const authToken = await getToken();
-        await updateCartProductAddAmount(authToken, product, amountToAdd.current);
+        await updateCartProductAmount(authToken, product, amountToAdd.current, true);
       };
 
     return (

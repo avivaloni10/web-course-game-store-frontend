@@ -9,9 +9,9 @@ import {Colors} from "../../../styles/theme";
 
 import {defineBound} from "../../../utils";
 
-export default function ProductCount({min, max, amountRef}) {
+export default function ProductCount({min, max, amountRef, initialValue}) {
     const limitItemCount = defineBound(min, max);
-    const [value, setValue] = useState(1);
+    const [value, setValue] = useState(initialValue || 1);
     amountRef.current = value;
 
     return (

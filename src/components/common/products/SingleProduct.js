@@ -20,7 +20,7 @@ import ProductMeta from "./ProductMeta";
 import {Colors} from "../../../styles/theme";
 import {useAuth} from "../../../context/AuthContext";
 import {useNavigate} from "react-router-dom";
-import { updateCartProductAddAmount } from "../../../utils";
+import { updateCartProductAmount } from "../../../utils";
 
 export default function SingleProduct({product}) {
     const {isUserSignedIn, getToken} = useAuth();
@@ -41,7 +41,7 @@ export default function SingleProduct({product}) {
         return;
       }
       const authToken = await getToken();
-      await updateCartProductAddAmount(authToken, product, 1);
+      await updateCartProductAmount(authToken, product, 1, true);
     };
 
     return (
