@@ -36,8 +36,6 @@ export default function HomePage({
                         <Typography variant="h4">{title}</Typography>
                     </Box>
                     {children}
-                    {/* {hideProducts ? null :
-                        <Products filter={filter} />} */}
                     {hideFooter ? null :
                         <Footer notifyUser={notifyUser} />}
                 </Stack>

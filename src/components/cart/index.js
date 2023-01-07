@@ -5,7 +5,7 @@ import HomePage from "../page-templates/home-page";
 export default function Cart() {
     return (
         <HomePage
-            productsTitle="Cart"
+            title="Cart"
             hideBanner
         >
             <Products gameFetcher={getHighestRatingGames} />
