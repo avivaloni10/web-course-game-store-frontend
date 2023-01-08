@@ -1,6 +1,6 @@
-import {useState} from "react";
+import { useState } from "react";
 
-import {Stack, Tooltip} from "@mui/material";
+import { Stack, Tooltip } from "@mui/material";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import ShareIcon from "@mui/icons-material/Share";
 import FitScreenIcon from "@mui/icons-material/FitScreen";
@@ -17,16 +17,26 @@ import useDialogModal from "../../../hooks/useDialogModal";
 
 import ProductDetail from "../product-detail";
 import ProductMeta from "./ProductMeta";
-import {Colors} from "../../../styles/theme";
-import {useAuth} from "../../../context/AuthContext";
-import {useNavigate} from "react-router-dom";
-import { updateCartProductAmount } from "../../../utils";
+import { Colors } from "../../../styles/theme";
+import { useAuth } from "../../../context/AuthContext";
+import { useNavigate } from "react-router-dom";
+import { getCartProduct, updateCartProductAmount } from "../../../utils";
 
-export default function SingleProduct({product}) {
-    const {isUserSignedIn, getToken} = useAuth();
+export default function SingleProduct({ product }) {
+    const { isUserSignedIn, getToken } = useAuth();
     const navigate = useNavigate()
     const [ProductDetailDialog, showProductDetailDialog] = useDialogModal(ProductDetail);
     const [showOptions, setShowOptions] = useState(false);
+    const [cartProduct, setCartProduct] = useState({ amount: 1 });
+    // const cartProduct = { amount: 1 };
+
+    useState(() => {
+        async function retrieveCartProduct() {
+            const cp = await getCartProduct(await getToken(), product);
+            setCartProduct(cp);
+        }
+        retrieveCartProduct();
+    }, [])
 
     const handleMouseEnter = () => {
         setShowOptions(true);
@@ -36,21 +46,28 @@ export default function SingleProduct({product}) {
     };
 
     const onAddToCart = async (product) => {
-      if (!isUserSignedIn()) {
-        navigate("/signin");
-        return;
-      }
-      const authToken = await getToken();
-      await updateCartProductAmount(authToken, product, 1, true);
+        if (!isUserSignedIn()) {
+            navigate("/signin");
+            return;
+        }
+        const authToken = await getToken();
+        await updateCartProductAmount(authToken, product, 1, true);
     };
+
+    const setNewCartProductAmount = (value) => {
+        setCartProduct(p => ({
+            ...p,
+            amount: value,
+        }))
+    }
 
     return (
         <>
             <Product onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
-                <ProductImage src={product.cover}/>
+                <ProductImage src={product.cover} />
                 <ProductFavButton isfav={0} onClick={() => product.isInWishList = !product.isInWishList}>
                     <Tooltip placement="left" title="add to wishlist">
-                        {product.isInWishList ? <FavoriteIcon sx={{color: Colors.danger}}/> : <FavoriteIcon/>}
+                        {product.isInWishList ? <FavoriteIcon sx={{ color: Colors.danger }} /> : <FavoriteIcon />}
                     </Tooltip>
                 </ProductFavButton>
                 {(showOptions) && (
@@ -62,19 +79,19 @@ export default function SingleProduct({product}) {
                     <Stack direction="column">
                         <ProductActionButton>
                             <Tooltip placement="left" title="share this product">
-                                <ShareIcon color="primary"/>
+                                <ShareIcon color="primary" />
                             </Tooltip>
                         </ProductActionButton>
                         <ProductActionButton onClick={() => showProductDetailDialog()}>
                             <Tooltip placement="left" title="Full view">
-                                <FitScreenIcon color="primary"/>
+                                <FitScreenIcon color="primary" />
                             </Tooltip>
                         </ProductActionButton>
                     </Stack>
                 </ProductActionsWrapper>
             </Product>
-            <ProductMeta product={product}/>
-            <ProductDetailDialog product={product}/>
+            <ProductMeta product={product} />
+            <ProductDetailDialog product={product} cartProduct={cartProduct} setNewCartProductAmount={setNewCartProductAmount} />
         </>
     );
 }

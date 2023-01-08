@@ -11,3 +11,9 @@ export const getHighestRatingGames = async () => {
 
 export const getOrCreateCart = cart.getOrCreateCart;
 export const updateCart = cart.updateCart;
+
+export const getCartGames = async (authToken) => {
+  const cart = await getOrCreateCart(authToken);
+  const gameIds = cart.games.map(g => g.id).join();
+  return (await instance.get(`games?id=${gameIds}`)).data;
+}

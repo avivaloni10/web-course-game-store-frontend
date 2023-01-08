@@ -6,16 +6,15 @@ import {
     Product,
     ProductActionButton,
     ProductActionsWrapper, ProductImage
-} from "../../../styles/product";
+} from "../../styles/product";
 
 import useDialogModal from "../../hooks/useDialogModal";
 
 import { useNavigate } from "react-router-dom";
-import { updateCartProductAmount } from "../../../utils";
+import { updateCartProductAmount } from "../../utils";
 import { useAuth } from "../../context/AuthContext";
 import ProductMeta from "../common/products/ProductMeta";
 import ProductDetail from "../common/product-detail";
-import { getCartProduct } from "../../utils";
 
 export default function CartProduct({ product }) {
     const { isUserSignedIn, getToken } = useAuth();
@@ -28,15 +27,6 @@ export default function CartProduct({ product }) {
     };
     const handleMouseLeave = () => {
         setShowOptions(false);
-    };
-
-    const onAddToCart = async (product) => {
-        if (!isUserSignedIn()) {
-            navigate("/signin");
-            return;
-        }
-        const authToken = await getToken();
-        await updateCartProductAmount(authToken, product, 1, true);
     };
 
     return (

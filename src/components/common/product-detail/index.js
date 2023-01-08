@@ -1,16 +1,16 @@
-import { Dialog, DialogTitle, Slide, Box, IconButton, DialogContent, Typography, Button } from "@mui/material";
-import CloseIcon from "@mui/icons-material/Close";
 import styled from "@emotion/styled";
-import ProductCount from "../product-count";
+import CloseIcon from "@mui/icons-material/Close";
 import FacebookIcon from "@mui/icons-material/Facebook";
-import TwitterIcon from "@mui/icons-material/Twitter";
-import InstagramIcon from "@mui/icons-material/Instagram";
 import FavoriteIcon from "@mui/icons-material/Favorite";
+import InstagramIcon from "@mui/icons-material/Instagram";
+import TwitterIcon from "@mui/icons-material/Twitter";
+import { Box, Button, Dialog, DialogContent, DialogTitle, IconButton, Slide, Typography } from "@mui/material";
+import ProductCount from "../product-count";
 
-import { Colors } from "../../../styles/theme";
-import { Product, ProductImage } from "../../../styles/product";
-import { useAuth } from "../../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../../context/AuthContext";
+import { Product, ProductImage } from "../../../styles/product";
+import { Colors } from "../../../styles/theme";
 import { updateCartProductAmount } from "../../../utils";
 
 function SlideTransition(props) {
@@ -29,7 +29,7 @@ const ProductDetailInfoWrapper = styled(Box)(() => ({
     lineHeight: 1.5,
 }));
 
-export default function ProductDetail({ open, onClose, product }) {
+export default function ProductDetail({ open, onClose, product, cartProduct, setNewCartProductAmount }) {
     const { isUserSignedIn, getToken } = useAuth();
     const navigate = useNavigate()
 
@@ -39,12 +39,13 @@ export default function ProductDetail({ open, onClose, product }) {
             return;
         }
         const authToken = await getToken();
-        await updateCartProductAmount(authToken, product, amountToAdd, true);
+        await updateCartProductAmount(authToken, product, amountToSet);
+        setNewCartProductAmount(amountToSet);
     };
 
-    var amountToAdd = 1;
+    var amountToSet = (cartProduct && cartProduct.amount) || 1;
     const onSetAmountToAdd = (value) => {
-        amountToAdd = value;
+        amountToSet = value;
     }
 
     return (
@@ -90,7 +91,7 @@ export default function ProductDetail({ open, onClose, product }) {
                             alignItems="center"
                             justifyContent="space-between"
                         >
-                            <ProductCount min={1} max={Math.min(product.availability, 9)} amountSetter={onSetAmountToAdd} />
+                            <ProductCount min={1} max={Math.min(product.availability, 9)} amountSetter={onSetAmountToAdd} initialValue={amountToSet} />
                             <Button variant="contained" onClick={() => onAddToCart(product)}>Add to Cart</Button>
                         </Box>
                         <Box
