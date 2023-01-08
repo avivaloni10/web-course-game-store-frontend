@@ -2,7 +2,7 @@ import {Tooltip, Typography} from "@mui/material";
 
 import {ProductMetaWrapper} from "../../../styles/product";
 
-export default function ProductMeta({product, children}) {
+export default function ProductMeta({product}) {
     return (
         <ProductMetaWrapper>
             <Tooltip placement="top" title={product.name}>
@@ -19,7 +19,6 @@ export default function ProductMeta({product, children}) {
             <Typography variant={"body1"}>
                 ${product.price}
             </Typography>
-            {children}
         </ProductMetaWrapper>
     );
 }

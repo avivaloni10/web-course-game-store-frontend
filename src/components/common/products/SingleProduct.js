@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import { Stack, Tooltip } from "@mui/material";
 import FavoriteIcon from "@mui/icons-material/Favorite";
@@ -28,9 +28,8 @@ export default function SingleProduct({ product }) {
     const [ProductDetailDialog, showProductDetailDialog] = useDialogModal(ProductDetail);
     const [showOptions, setShowOptions] = useState(false);
     const [cartProduct, setCartProduct] = useState({ amount: 1 });
-    // const cartProduct = { amount: 1 };
 
-    useState(() => {
+    useEffect(() => {
         async function retrieveCartProduct() {
             const cp = await getCartProduct(await getToken(), product);
             setCartProduct(cp);
@@ -91,7 +90,7 @@ export default function SingleProduct({ product }) {
                 </ProductActionsWrapper>
             </Product>
             <ProductMeta product={product} />
-            <ProductDetailDialog product={product} cartProduct={cartProduct} setNewCartProductAmount={setNewCartProductAmount} />
+            <ProductDetailDialog product={product} initialValue={(cartProduct && cartProduct.amount) || 1} setNewCartProductAmount={setNewCartProductAmount} />
         </>
     );
 }

@@ -29,7 +29,7 @@ const ProductDetailInfoWrapper = styled(Box)(() => ({
     lineHeight: 1.5,
 }));
 
-export default function ProductDetail({ open, onClose, product, cartProduct, setNewCartProductAmount }) {
+export default function ProductDetail({ open, onClose, product, initialValue, setNewCartProductAmount }) {
     const { isUserSignedIn, getToken } = useAuth();
     const navigate = useNavigate()
 
@@ -43,7 +43,7 @@ export default function ProductDetail({ open, onClose, product, cartProduct, set
         setNewCartProductAmount(amountToSet);
     };
 
-    var amountToSet = (cartProduct && cartProduct.amount) || 1;
+    var amountToSet = initialValue || 1;
     const onSetAmountToAdd = (value) => {
         amountToSet = value;
     }
@@ -92,7 +92,7 @@ export default function ProductDetail({ open, onClose, product, cartProduct, set
                             justifyContent="space-between"
                         >
                             <ProductCount min={1} max={Math.min(product.availability, 9)} amountSetter={onSetAmountToAdd} initialValue={amountToSet} />
-                            <Button variant="contained" onClick={() => onAddToCart(product)}>Add to Cart</Button>
+                            <Button variant="contained" onClick={() => onAddToCart(product)}>Update Cart</Button>
                         </Box>
                         <Box
                             display="flex"

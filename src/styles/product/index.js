@@ -10,6 +10,7 @@ export const Product = styled(Box)(({theme}) => ({
     alignItems: "center",
     flexDirection: "column",
     position: "relative",
+    marginRight: "40px",
 }));
 
 export const ProductImage = styled("img")(({src}) => ({

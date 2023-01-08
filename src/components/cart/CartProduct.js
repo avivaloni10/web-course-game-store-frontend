@@ -1,26 +1,33 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-import FitScreenIcon from "@mui/icons-material/FitScreen";
-import { Stack, Tooltip } from "@mui/material";
 import {
-    Product,
-    ProductActionButton,
-    ProductActionsWrapper, ProductImage
+    Product, ProductAddToCart, ProductImage
 } from "../../styles/product";
 
 import useDialogModal from "../../hooks/useDialogModal";
 
 import { useNavigate } from "react-router-dom";
-import { updateCartProductAmount } from "../../utils";
 import { useAuth } from "../../context/AuthContext";
-import ProductMeta from "../common/products/ProductMeta";
+import { getCartProduct, updateCartProductAmount } from "../../utils";
 import ProductDetail from "../common/product-detail";
+import ProductMeta from "../common/products/ProductMeta";
+import ProductCount from "../common/product-count";
+import "./CartProduct.css"
 
 export default function CartProduct({ product }) {
     const { isUserSignedIn, getToken } = useAuth();
     const navigate = useNavigate()
     const [ProductDetailDialog, showProductDetailDialog] = useDialogModal(ProductDetail);
     const [showOptions, setShowOptions] = useState(false);
+    const [cartProduct, setCartProduct] = useState({ amount: 1 });
+
+    useEffect(() => {
+        async function retrieveCartProduct() {
+            const cp = await getCartProduct(await getToken(), product);
+            setCartProduct(cp);
+        }
+        retrieveCartProduct();
+    }, [])
 
     const handleMouseEnter = () => {
         setShowOptions(true);
@@ -29,24 +36,37 @@ export default function CartProduct({ product }) {
         setShowOptions(false);
     };
 
+    const onAddToCart = async (product) => {
+        if (!isUserSignedIn()) {
+            navigate("/signin");
+            return;
+        }
+        const authToken = await getToken();
+        await updateCartProductAmount(authToken, product, 1, true);
+    };
+
+    const setNewCartProductAmount = (value) => {
+        setCartProduct(p => ({
+            ...p,
+            amount: value,
+        }))
+    }
+
     return (
         <>
             <Product onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
                 <ProductImage src={product.cover} />
-                <ProductActionsWrapper show={showOptions}>
-                    <Stack direction="column">
-                        <ProductActionButton onClick={() => showProductDetailDialog()}>
-                            <Tooltip placement="left" title="Full view">
-                                <FitScreenIcon color="primary" />
-                            </Tooltip>
-                        </ProductActionButton>
-                    </Stack>
-                </ProductActionsWrapper>
+                {(showOptions) && (
+                    <ProductAddToCart show={showOptions} variant="contained" onClick={() => showProductDetailDialog()}>
+                        Full View
+                    </ProductAddToCart>
+                )}
             </Product>
-            <ProductMeta product={product}>
-
-            </ProductMeta>
-            <ProductDetailDialog product={product} />
+            <ProductMeta product={product} />
+            <div id={"cartProductCount"}>
+                <ProductCount id={"cartProductCount"} key={cartProduct.amount} min={1} max={Math.min(product.availability, 9)} amountSetter={setNewCartProductAmount} initialValue={cartProduct && cartProduct.amount} />
+            </div>
+            <ProductDetailDialog product={product} initialValue={(cartProduct && cartProduct.amount) || 1} setNewCartProductAmount={setNewCartProductAmount} />
         </>
     );
 }
