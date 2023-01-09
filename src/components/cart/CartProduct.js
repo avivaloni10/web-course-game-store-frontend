@@ -9,10 +9,11 @@ import useDialogModal from "../../hooks/useDialogModal";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import { getCartProduct, updateCartProductAmount } from "../../utils";
+import ProductCount from "../common/product-count";
 import ProductDetail from "../common/product-detail";
 import ProductMeta from "../common/products/ProductMeta";
-import ProductCount from "../common/product-count";
-import "./CartProduct.css"
+import "./CartProduct.css";
+import { CartProductMetaWrapper } from "../../styles/cart";
 
 export default function CartProduct({ product }) {
     const { isUserSignedIn, getToken } = useAuth();
@@ -20,6 +21,7 @@ export default function CartProduct({ product }) {
     const [ProductDetailDialog, showProductDetailDialog] = useDialogModal(ProductDetail);
     const [showOptions, setShowOptions] = useState(false);
     const [cartProduct, setCartProduct] = useState({ amount: 1 });
+    const productScale = 100;
 
     useEffect(() => {
         async function retrieveCartProduct() {
@@ -55,14 +57,16 @@ export default function CartProduct({ product }) {
     return (
         <>
             <Product onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
-                <ProductImage src={product.cover} />
+                <ProductImage src={product.cover + `?height=${productScale}&width=${productScale}`} />
                 {(showOptions) && (
-                    <ProductAddToCart show={showOptions} variant="contained" onClick={() => showProductDetailDialog()}>
+                    <ProductAddToCart width={`${productScale}px`} show={showOptions} variant="contained" onClick={() => showProductDetailDialog()}>
                         Full View
                     </ProductAddToCart>
                 )}
             </Product>
-            <ProductMeta product={product} />
+            <div className="text-center">
+            <ProductMeta product={product} productMetaWrapperOverride={CartProductMetaWrapper}/>
+            </div>
             <div id={"cartProductCount"}>
                 <ProductCount id={"cartProductCount"} key={cartProduct.amount} min={1} max={Math.min(product.availability, 9)} amountSetter={setNewCartProductAmount} initialValue={cartProduct && cartProduct.amount} />
             </div>

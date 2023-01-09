@@ -2,9 +2,10 @@ import {Tooltip, Typography} from "@mui/material";
 
 import {ProductMetaWrapper} from "../../../styles/product";
 
-export default function ProductMeta({product}) {
+export default function ProductMeta({product, productMetaWrapperOverride}) {
+    const ProductMetaWrapperOverride = productMetaWrapperOverride || ProductMetaWrapper
     return (
-        <ProductMetaWrapper>
+        <ProductMetaWrapperOverride>
             <Tooltip placement="top" title={product.name}>
 
                 <Typography sx={{
@@ -19,6 +20,6 @@ export default function ProductMeta({product}) {
             <Typography variant={"body1"}>
                 ${product.price}
             </Typography>
-        </ProductMetaWrapper>
+        </ProductMetaWrapperOverride>
     );
 }
