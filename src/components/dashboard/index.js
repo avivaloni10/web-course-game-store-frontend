@@ -13,6 +13,7 @@ export default function Dashboard() {
             console.log("gs:", gs)
             setGames(gs);
         }
+
         fetchGames();
     }, [])
 
