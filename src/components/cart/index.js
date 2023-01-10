@@ -1,14 +1,17 @@
-import { getHighestRatingGames } from "../../services";
-import Products from "../common/products";
+import { useAuth } from "../../context/AuthContext";
 import HomePage from "../page-templates/home-page";
+import CartProducts from "./CartProducts";
 
 export default function Cart() {
+    const { getToken } = useAuth();
     return (
         <HomePage
-            title="Cart"
+            title="My Items"
             hideBanner
+            hidePromotions
         >
-            <Products gameFetcher={getHighestRatingGames} />
+
+            <CartProducts />
         </HomePage>
     );
 }
