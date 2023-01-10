@@ -6,7 +6,9 @@ export const searchGames = async (ids, name, description) => {
         url += "&id=" + ids;
     }
     try {
-        return (await instance.get(url)).data;
+        const games = (await instance.get(url)).data
+        console.log("games: ", games);
+        return games
     } catch (err) {
         console.error(err)
         return []

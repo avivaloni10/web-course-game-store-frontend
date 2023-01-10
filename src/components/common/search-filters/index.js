@@ -3,7 +3,7 @@ import {Container, Grid, TextField} from "@mui/material";
 import {styled} from "@mui/system";
 import {Colors} from "../../../styles/theme";
 import {useEffect, useState} from "react";
-import {searchGames} from "../../../services";
+import {getHighestRatingGames, searchGames} from "../../../services";
 
 const SearchFilter = styled(TextField)(({theme}) => ({
     ".MuiInputLabel-root": {
@@ -21,7 +21,12 @@ export default function SearchFilters({setGames}) {
     const [filterByDescription, setFilterByDescription] = useState("");
 
     useEffect(() => {
-        setGames(searchGames(filterById, filterByName, filterByDescription));
+        async function filterGames() {
+            const gs = await searchGames(filterById, filterByName, filterByDescription)
+            console.log("gs:", gs)
+            setGames(gs);
+        }
+        filterGames();
     }, [filterById, filterByName, filterByDescription]);
 
     return (
