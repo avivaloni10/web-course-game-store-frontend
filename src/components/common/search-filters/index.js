@@ -2,6 +2,8 @@ import {Container, Grid, TextField} from "@mui/material";
 
 import {styled} from "@mui/system";
 import {Colors} from "../../../styles/theme";
+import {useEffect, useState} from "react";
+import {searchGames} from "../../../services";
 
 const SearchFilter = styled(TextField)(({theme}) => ({
     ".MuiInputLabel-root": {
@@ -13,27 +15,38 @@ const SearchFilter = styled(TextField)(({theme}) => ({
     },
 }));
 
-export default function SearchFilters() {
+export default function SearchFilters({setGames}) {
+    const [filterById, setFilterById] = useState("");
+    const [filterByName, setFilterByName] = useState("");
+    const [filterByDescription, setFilterByDescription] = useState("");
+
+    useEffect(() => {
+        setGames(searchGames(filterById, filterByName, filterByDescription));
+    }, [filterById, filterByName, filterByDescription]);
+
     return (
         <Container id="products">
             <Grid
                 container
                 spacing={{xs: 2, md: 3}}
                 justifyContent="center"
-                sx={{margin: `20px 4px 10px 4px`}}
+                sx={{margin: `20px 4px 20px 4px`}}
                 columns={{xs: 4, sm: 8, md: 12}}
             >
                 <Grid item key="filter-by-id" xs={2} sm={4} md={4} display="flex" flexDirection={'column'}
                       alignItems="center">
-                    {<SearchFilter color="primary" label="Filter by id" variant="standard"/>}
+                    {<SearchFilter color="primary" label="Filter by id" variant="standard"
+                                   value={filterById} onChange={(e) => setFilterById(e.target.value)}/>}
                 </Grid>
                 <Grid item key="filter-by-name" xs={2} sm={4} md={4} display="flex" flexDirection={'column'}
                       alignItems="center">
-                    {<SearchFilter color="primary" label="Filter by name" variant="standard"/>}
+                    {<SearchFilter color="primary" label="Filter by name" variant="standard"
+                                   value={filterByName} onChange={(e) => setFilterByName(e.target.value)}/>}
                 </Grid>
                 <Grid item key="filter-by-description" xs={2} sm={4} md={4} display="flex" flexDirection={'column'}
                       alignItems="center">
-                    {<SearchFilter color="primary" label="Filter by description" variant="standard"/>}
+                    {<SearchFilter color="primary" label="Filter by description" variant="standard"
+                                   value={filterByDescription} onChange={(e) => setFilterByDescription(e.target.value)}/>}
                 </Grid>
             </Grid>
         </Container>

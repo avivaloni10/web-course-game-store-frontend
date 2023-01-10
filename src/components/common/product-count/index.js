@@ -12,7 +12,12 @@ import {defineBound} from "../../../utils";
 export default function ProductCount({min, max, amountSetter, initialValue}) {
     const limitItemCount = defineBound(min, max);
     const [value, setValue] = useState(initialValue || 1);
-    amountSetter(value);
+
+    const onAmountChanged = (newAmount) => {
+        const limitedAmount = limitItemCount(newAmount);
+        setValue(limitedAmount);
+        amountSetter(limitedAmount);
+    }
 
     return (
         <Box display="flex">
@@ -21,7 +26,7 @@ export default function ProductCount({min, max, amountSetter, initialValue}) {
                     borderRadius: 0,
                     background: `${Colors.secondary}`,
                 }}
-                onClick={() => setValue(limitItemCount(value - 1))}
+                onClick={() => {onAmountChanged(value - 1); }}
             >
                 <RemoveIcon/>
             </IconButton>
@@ -39,7 +44,7 @@ export default function ProductCount({min, max, amountSetter, initialValue}) {
                     borderRadius: 0,
                     background: `${Colors.secondary}`,
                 }}
-                onClick={() => setValue(limitItemCount(value + 1))}
+                onClick={() => onAmountChanged(value + 1)}
             >
                 <AddIcon/>
             </IconButton>

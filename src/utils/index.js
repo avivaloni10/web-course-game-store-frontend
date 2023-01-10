@@ -10,4 +10,5 @@ export const smoothScrollToId = (id) => {
     }
 }
 
-export const updateCartProductAddAmount = cartUpdateUtils.updateCartProductAddAmount;
+export const updateCartProductAmount = cartUpdateUtils.updateCartProductAmount;
+export const getCartProduct = cartUpdateUtils.getCartProduct;

@@ -1,34 +1,20 @@
 import {ThemeProvider} from "@mui/system";
 import {Container, Typography, Box, Stack, Snackbar, Alert} from "@mui/material";
-import Appbar from "../../common/appbar";
 import theme from "../../../styles/theme";
-import Banner from "../../common/banner";
-import Products from "../../common/products";
 import Footer from "../../common/footer";
-import Promotions from "../../common/promotions";
 import {useState} from "react";
-import SearchFilters from "../../common/search-filters";
+import Header from "../../common/header";
 
 export default function HomePage({
-                                     productsTitle,
-                                     productsFilter,
+                                     title,
                                      hideAppbar,
                                      hideBanner,
                                      hidePromotions,
-                                     hideSearchFilters,
-                                     hideProducts,
-                                     hideFooter
+                                     hideFooter,
+                                     children,
                                  }) {
-    const [search, setSearch] = useState("");
     const [isSnackbarOpen, setIsSnackbarOpen] = useState(false);
     const [snackbarMessage, setSnackbarMessage] = useState(false);
-
-    const filter = product => {
-        if (productsFilter && !productsFilter(product)) {
-            return false
-        }
-        return product.name.toLowerCase().includes(search.toLowerCase())
-    };
 
     const notifyUser = message => {
         setSnackbarMessage(message);
@@ -39,15 +25,15 @@ export default function HomePage({
         <ThemeProvider theme={theme}>
             <Container disableGutters maxWidth="xl" sx={{background: "#fff"}}>
                 <Stack>
-                    {hideAppbar ? null : <Appbar/>}
-                    {hideBanner ? null : <Banner/>}
-                    {hidePromotions ? null : <Promotions/>}
+                    <Header
+                        hideAppbar={hideAppbar}
+                        hideBanner={hideBanner}
+                        hidePromotions={hidePromotions}/>
+
                     <Box display="flex" justifyContent="center" sx={{p: 4}}>
-                        <Typography variant="h4">{productsTitle}</Typography>
+                        <Typography variant="h4">{title}</Typography>
                     </Box>
-                    {hideSearchFilters ? null : <SearchFilters/>}
-                    {hideProducts ? null :
-                        <Products filter={filter}/>}
+                    {children}
                     {hideFooter ? null :
                         <Footer notifyUser={notifyUser}/>}
                 </Stack>
