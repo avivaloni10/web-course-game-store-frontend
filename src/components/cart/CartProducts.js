@@ -11,6 +11,7 @@ export default function CartProducts() {
     const { getToken } = useAuth();
     const [showedGamesLimit, setShowedGamesLimit] = useState(12);
     const [total, setTotal] = useState(0);
+    const [totalUpdateNotify, setTotalUpdateNotify] = useState(0);
 
     useEffect(() => {
         async function fetchGames() {
@@ -24,13 +25,16 @@ export default function CartProducts() {
             setTotal(t);
         }
         fetchGames();
-    }, [getToken])
+    }, [getToken, totalUpdateNotify])
 
+    const notifyTotalUpdated = () => {
+        totalUpdateNotify === 0 ? setTotalUpdateNotify(1) : setTotalUpdateNotify(0);
+    }
     const renderProducts = games.map((product) => {
         return (
             <Grid item key={product.id} xs={2} sm={4} md={4} display="flex" flexDirection={'row'}
                 alignItems="center">
-                {<CartProduct product={product} />}
+                {<CartProduct product={product} notifyTotalUpdate={notifyTotalUpdated} />}
             </Grid>
         );
     }).slice(0, showedGamesLimit);
@@ -41,7 +45,7 @@ export default function CartProducts() {
             <Grid container alignItems="center" justifyContent="center">
                 <Grid item xs={2} sm={4} md={4}>
                     <Typography variant="h5" align="center">
-                        Total: {total}$
+                        Total: {total.toFixed(2)}$
                     </Typography>
                 </Grid>
                 <Grid item xs={2} sm={4} md={4} textAlign="center">

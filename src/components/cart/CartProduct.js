@@ -6,7 +6,6 @@ import {
 
 import useDialogModal from "../../hooks/useDialogModal";
 
-import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import { getCartProduct, updateCartProductAmount } from "../../utils";
 import ProductCount from "../common/product-count";
@@ -15,17 +14,20 @@ import ProductMeta from "../common/products/ProductMeta";
 import "./CartProduct.css";
 import { CartProductMetaWrapper } from "../../styles/cart";
 
-export default function CartProduct({ product }) {
+export default function CartProduct({ product, notifyTotalUpdate }) {
     const { getToken } = useAuth();
     const [ProductDetailDialog, showProductDetailDialog] = useDialogModal(ProductDetail);
     const [showOptions, setShowOptions] = useState(false);
     const [cartProduct, setCartProduct] = useState({ amount: 1 });
+    const [token, setToken] = useState();
     const productScale = 100;
 
     useEffect(() => {
         async function retrieveCartProduct() {
-            const cp = await getCartProduct(await getToken(), product);
+            const tkn = await getToken();
+            const cp = await getCartProduct(tkn, product);
             setCartProduct(cp);
+            setToken(tkn);
         }
         retrieveCartProduct();
     }, [getToken, product])
@@ -38,10 +40,12 @@ export default function CartProduct({ product }) {
     };
 
     const setNewCartProductAmount = (value) => {
+        updateCartProductAmount(token, product, value, false);
         setCartProduct(p => ({
             ...p,
             amount: value,
-        }))
+        }));
+        notifyTotalUpdate()
     }
 
     return (
