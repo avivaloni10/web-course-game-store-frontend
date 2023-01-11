@@ -16,8 +16,7 @@ import "./CartProduct.css";
 import { CartProductMetaWrapper } from "../../styles/cart";
 
 export default function CartProduct({ product }) {
-    const { isUserSignedIn, getToken } = useAuth();
-    const navigate = useNavigate()
+    const { getToken } = useAuth();
     const [ProductDetailDialog, showProductDetailDialog] = useDialogModal(ProductDetail);
     const [showOptions, setShowOptions] = useState(false);
     const [cartProduct, setCartProduct] = useState({ amount: 1 });
@@ -29,7 +28,7 @@ export default function CartProduct({ product }) {
             setCartProduct(cp);
         }
         retrieveCartProduct();
-    }, [getToken])
+    }, [getToken, product])
 
     const handleMouseEnter = () => {
         setShowOptions(true);
