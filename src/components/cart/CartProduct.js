@@ -29,22 +29,13 @@ export default function CartProduct({ product }) {
             setCartProduct(cp);
         }
         retrieveCartProduct();
-    }, [])
+    }, [getToken])
 
     const handleMouseEnter = () => {
         setShowOptions(true);
     };
     const handleMouseLeave = () => {
         setShowOptions(false);
-    };
-
-    const onAddToCart = async (product) => {
-        if (!isUserSignedIn()) {
-            navigate("/signin");
-            return;
-        }
-        const authToken = await getToken();
-        await updateCartProductAmount(authToken, product, 1, true);
     };
 
     const setNewCartProductAmount = (value) => {
@@ -65,7 +56,7 @@ export default function CartProduct({ product }) {
                 )}
             </Product>
             <div className="text-center">
-            <ProductMeta product={product} productMetaWrapperOverride={CartProductMetaWrapper}/>
+                <ProductMeta product={product} productMetaWrapperOverride={CartProductMetaWrapper} />
             </div>
             <div id={"cartProductCount"}>
                 <ProductCount id={"cartProductCount"} key={cartProduct.amount} min={1} max={Math.min(product.availability, 9)} amountSetter={setNewCartProductAmount} initialValue={cartProduct && cartProduct.amount} />

@@ -35,7 +35,7 @@ export default function SingleProduct({ product }) {
             setCartProduct(cp);
         }
         retrieveCartProduct();
-    }, [])
+    }, [getToken])
 
     const handleMouseEnter = () => {
         setShowOptions(true);

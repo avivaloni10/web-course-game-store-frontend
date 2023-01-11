@@ -24,7 +24,7 @@ export default function CartProducts() {
             setTotal(t);
         }
         fetchGames();
-    }, [])
+    }, [getToken])
 
     const renderProducts = games.map((product) => {
         return (
