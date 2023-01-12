@@ -1,6 +1,7 @@
 #cartProductCount {
     position:absolute;
     right: 0;
+    text-align: center;
 }
 .text-center {
     text-align: center;

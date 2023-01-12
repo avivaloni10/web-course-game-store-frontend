@@ -35,7 +35,7 @@ export default function SingleProduct({ product }) {
             setCartProduct(cp);
         }
         retrieveCartProduct();
-    }, [])
+    }, [getToken, product])
 
     const handleMouseEnter = () => {
         setShowOptions(true);
@@ -51,6 +51,7 @@ export default function SingleProduct({ product }) {
         }
         const authToken = await getToken();
         await updateCartProductAmount(authToken, product, 1, true);
+        setNewCartProductAmount(cartProduct.amount + 1);
     };
 
     const setNewCartProductAmount = (value) => {

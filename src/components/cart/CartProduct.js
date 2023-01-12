@@ -6,30 +6,30 @@ import {
 
 import useDialogModal from "../../hooks/useDialogModal";
 
-import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
-import { getCartProduct, updateCartProductAmount } from "../../utils";
+import { updateCartProductAmount } from "../../utils";
 import ProductCount from "../common/product-count";
 import ProductDetail from "../common/product-detail";
 import ProductMeta from "../common/products/ProductMeta";
 import "./CartProduct.css";
 import { CartProductMetaWrapper } from "../../styles/cart";
+import DeleteIcon from '@mui/icons-material/Delete';
+import { Button } from "@mui/material";
 
-export default function CartProduct({ product }) {
-    const { isUserSignedIn, getToken } = useAuth();
-    const navigate = useNavigate()
+export default function CartProduct({ cartProduct, product, notifyCartProductUpdated }) {
+    const { getToken } = useAuth();
     const [ProductDetailDialog, showProductDetailDialog] = useDialogModal(ProductDetail);
     const [showOptions, setShowOptions] = useState(false);
-    const [cartProduct, setCartProduct] = useState({ amount: 1 });
+    const [token, setToken] = useState();
     const productScale = 100;
 
     useEffect(() => {
         async function retrieveCartProduct() {
-            const cp = await getCartProduct(await getToken(), product);
-            setCartProduct(cp);
+            const tkn = await getToken();
+            setToken(tkn);
         }
         retrieveCartProduct();
-    }, [])
+    }, [getToken, product])
 
     const handleMouseEnter = () => {
         setShowOptions(true);
@@ -38,20 +38,9 @@ export default function CartProduct({ product }) {
         setShowOptions(false);
     };
 
-    const onAddToCart = async (product) => {
-        if (!isUserSignedIn()) {
-            navigate("/signin");
-            return;
-        }
-        const authToken = await getToken();
-        await updateCartProductAmount(authToken, product, 1, true);
-    };
-
     const setNewCartProductAmount = (value) => {
-        setCartProduct(p => ({
-            ...p,
-            amount: value,
-        }))
+        updateCartProductAmount(token, product, value, false);
+        notifyCartProductUpdated({...cartProduct, amount: value})
     }
 
     return (
@@ -65,10 +54,13 @@ export default function CartProduct({ product }) {
                 )}
             </Product>
             <div className="text-center">
-            <ProductMeta product={product} productMetaWrapperOverride={CartProductMetaWrapper}/>
+                <ProductMeta product={product} productMetaWrapperOverride={CartProductMetaWrapper} />
             </div>
             <div id={"cartProductCount"}>
                 <ProductCount id={"cartProductCount"} key={cartProduct.amount} min={1} max={Math.min(product.availability, 9)} amountSetter={setNewCartProductAmount} initialValue={cartProduct && cartProduct.amount} />
+                <Button variant="outlined" startIcon={<DeleteIcon />} onClick={() => setNewCartProductAmount(0)}>
+                    Delete
+                </Button>
             </div>
             <ProductDetailDialog product={product} initialValue={(cartProduct && cartProduct.amount) || 1} setNewCartProductAmount={setNewCartProductAmount} />
         </>
