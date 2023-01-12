@@ -1,9 +1,12 @@
 import instance from "./axios-instance";
 import * as cart from "./cart";
+import * as games from "./games";
 
 export const getGames = async () => {
   return (await instance.get("games")).data;
 };
+export const searchGames = games.searchGames;
+
 
 export const getHighestRatingGames = async () => {
   return (await instance.get("games?sort=-totalRating")).data;
