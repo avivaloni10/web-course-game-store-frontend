@@ -2,7 +2,7 @@ import { Card, CardContent, TextField, Typography } from "@mui/material";
 import { useCallback, useEffect, useState } from "react";
 import InputFieldWithLabel from "./InputFieldWithLabel";
 
-export default function CheckoutEmailAddress({ topLevelStyle, modifyEmail, modifyIsEmailApproved }) {
+export default function CheckoutEmailAddress({ modifyEmail, modifyIsEmailApproved }) {
 
     const [emailAddr, setEmailAddr] = useState("");
 
@@ -25,7 +25,7 @@ export default function CheckoutEmailAddress({ topLevelStyle, modifyEmail, modif
     }, [emailAddr, setEmailAddr, isInvalidEmailAddress, modifyEmail, modifyIsEmailApproved])
 
     return (
-        <Card sx={topLevelStyle}>
+        <Card>
             <CardContent>
                 <InputFieldWithLabel label={"EMAIL ADDRESS"} onChangeSetter={setEmailAddr} validator={isInvalidEmailAddress} />
             </CardContent>

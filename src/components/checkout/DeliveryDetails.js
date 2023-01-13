@@ -8,7 +8,7 @@ function isInputInvalid(value) {
     }
 }
 
-export default function CheckoutDeliveryDetails({ topLevelStyle, modifyDeliveryDetails, modifyIsAddressApproved }) {
+export default function CheckoutDeliveryDetails({ modifyDeliveryDetails, modifyIsAddressApproved }) {
 
     const [name, setName] = useState("");
     const [street, setStreet] = useState("");
@@ -51,7 +51,7 @@ export default function CheckoutDeliveryDetails({ topLevelStyle, modifyDeliveryD
     }, [name, street, city, region, postcode, phone, country, allFieldsValid, modifyDeliveryDetails, modifyIsAddressApproved])
 
     return (
-        <Card sx={topLevelStyle}>
+        <Card>
             <CardContent>
                 <Typography variant="h4" sx={{ mb: 3 }}>Delivery Details</Typography>
                 <InputFieldWithLabel label={"Full Name"} onChangeSetter={setName} validator={isNameInvalid} />

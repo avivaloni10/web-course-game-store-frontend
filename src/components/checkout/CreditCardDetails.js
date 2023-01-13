@@ -1,8 +1,8 @@
+import { Card, CardContent, Grid, MenuItem, TextField, Typography } from "@mui/material";
 import { useCallback, useEffect, useState } from "react";
-import { Autocomplete, Card, CardContent, Grid, MenuItem, Select, TextField, Typography } from "@mui/material";
 import InputFieldWithLabel from "./InputFieldWithLabel";
 
-export default function CheckoutCreditCardDetails({ topLevelStyle, modifyCardDetails, modifyIsCardDetailsApproved }) {
+export default function CheckoutCreditCardDetails({ modifyCardDetails, modifyIsCardDetailsApproved }) {
     const [cardNumber, setCardNumber] = useState("");
     const [expiryMonth, setExpiryMonth] = useState("1");
     const [expiryYear, setExpiryYear] = useState(new Date().getFullYear().toString());
@@ -49,7 +49,7 @@ export default function CheckoutCreditCardDetails({ topLevelStyle, modifyCardDet
     }, [name, cardNumber, expiryMonth, expiryYear, cvv, allFieldsValid, modifyCardDetails, modifyIsCardDetailsApproved])
 
     return (
-        <Card sx={topLevelStyle}>
+        <Card>
             <CardContent>
                 <Typography variant="h4" sx={{ mb: 3 }}>Payment Details</Typography>
                 <InputFieldWithLabel label={"Name On Card"} onChangeSetter={setName} validator={isNameInvalid} />
