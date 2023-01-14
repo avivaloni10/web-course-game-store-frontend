@@ -6,6 +6,7 @@ export const getGames = async () => {
   return (await instance.get("games")).data;
 };
 export const searchGames = games.searchGames;
+export const getGame = games.getGame;
 
 
 export const getHighestRatingGames = async () => {
