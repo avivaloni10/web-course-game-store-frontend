@@ -12,6 +12,7 @@ import Temp from "./components/temp";
 import {AuthProvider} from "./context/AuthContext";
 
 import {BrowserRouter as Router, Routes, Route} from "react-router-dom";
+import Checkout from "./components/checkout";
 
 function App() {
     return <Router>
@@ -24,6 +25,7 @@ function App() {
                 <Route path="/cart" element={<Cart/>}/>
                 <Route path="/wishlist" element={<Wishlist/>}/>
                 <Route path="/categories" element={<Temp/>}/>
+                <Route path="/checkout" element={<Checkout/>}/>
             </Routes>
         </AuthProvider>
     </Router>

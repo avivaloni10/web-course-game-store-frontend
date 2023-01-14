@@ -37,6 +37,15 @@ const theme = createTheme({
     },
 
     components: {
+        MuiCard: {
+            styleOverrides: {
+                root: {
+                    background: Colors.body_bg,
+                    marginBottom: 15,
+                    boxShadow: 3,
+                }
+            }
+        },
         MuiButton: {
             defaultProps: {
                 disableRipple: true,

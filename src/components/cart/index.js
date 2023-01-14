@@ -1,4 +1,3 @@
-import { useAuth } from "../../context/AuthContext";
 import HomePage from "../page-templates/home-page";
 import CartProducts from "./CartProducts";
 
