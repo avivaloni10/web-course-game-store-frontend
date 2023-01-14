@@ -8,7 +8,7 @@ function isInputInvalid(value) {
     }
 }
 
-export default function CheckoutDeliveryDetails({ modifyDeliveryDetails, modifyIsAddressApproved }) {
+export default function DeliveryDetails({ modifyDeliveryDetails, modifyIsAddressApproved }) {
 
     const [name, setName] = useState("");
     const [street, setStreet] = useState("");

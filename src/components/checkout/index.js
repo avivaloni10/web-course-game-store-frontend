@@ -4,11 +4,11 @@ import { useCallback, useState } from "react";
 import { Colors } from "../../styles/theme";
 import Header from "../common/header";
 import HomePage from "../page-templates/home-page";
-import CheckoutBuyNow from "./BuyNow";
-import CheckoutUserDetails from "./CheckoutUserDetails";
-import CheckoutCreditCardDetails from "./CreditCardDetails";
-import CheckoutDeliveryDetails from "./DeliveryDetails";
-import CheckoutEmailAddress from "./EmailAddress";
+import BuyNow from "./BuyNow";
+import UserDetails from "./UserDetails";
+import CreditCardDetails from "./CreditCardDetails";
+import DeliveryDetails from "./DeliveryDetails";
+import EmailAddress from "./EmailAddress";
 
 export default function Checkout(total) {
     const [userDetails, setUserDetails] = useState({});
@@ -25,8 +25,8 @@ export default function Checkout(total) {
             <Grid container spacing={1} >
                 <Grid item sx={topLevelStyle}>
                     <Grid container alignItems={"center"} spacing={1}>
-                        <CheckoutUserDetails setUserDetails={setUserDetails} setUserDetailsApproved={setUserDetailsApproved} />
-                        <CheckoutBuyNow onClick={() => { }} disabled={!userDetailsApproved} />
+                        <UserDetails setUserDetails={setUserDetails} setUserDetailsApproved={setUserDetailsApproved} />
+                        <BuyNow onClick={() => { }} disabled={!userDetailsApproved} />
                     </Grid>
                 </Grid>
             </Grid>

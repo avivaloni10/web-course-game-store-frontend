@@ -2,7 +2,7 @@ import { Card, CardContent, Grid, MenuItem, TextField, Typography } from "@mui/m
 import { useCallback, useEffect, useState } from "react";
 import InputFieldWithLabel from "./InputFieldWithLabel";
 
-export default function CheckoutCreditCardDetails({ modifyCardDetails, modifyIsCardDetailsApproved }) {
+export default function CreditCardDetails({ modifyCardDetails, modifyIsCardDetailsApproved }) {
     const [cardNumber, setCardNumber] = useState("");
     const [expiryMonth, setExpiryMonth] = useState("1");
     const [expiryYear, setExpiryYear] = useState(new Date().getFullYear().toString());

@@ -1,10 +1,10 @@
 import { Grid } from "@mui/material";
 import { useCallback, useEffect, useState } from "react";
-import CheckoutCreditCardDetails from "./CreditCardDetails";
-import CheckoutDeliveryDetails from "./DeliveryDetails";
-import CheckoutEmailAddress from "./EmailAddress";
+import CreditCardDetails from "./CreditCardDetails";
+import DeliveryDetails from "./DeliveryDetails";
+import EmailAddress from "./EmailAddress";
 
-export default function CheckoutUserDetails({ setUserDetails, setUserDetailsApproved }) {
+export default function UserDetails({ setUserDetails, setUserDetailsApproved }) {
     const [email, setEmail] = useState();
     const [emailApproved, setEmailApproved] = useState(false);
     const [deliveryDetails, setDeliveryDetails] = useState({});
@@ -29,13 +29,13 @@ export default function CheckoutUserDetails({ setUserDetails, setUserDetailsAppr
     return (
         <Grid container alignItems={"center"} spacing={1}>
             <Grid item xs={12} sm={12} md={12} lg={12}>
-                <CheckoutEmailAddress modifyEmail={setEmail} modifyIsEmailApproved={setEmailApproved} />
+                <EmailAddress modifyEmail={setEmail} modifyIsEmailApproved={setEmailApproved} />
             </Grid>
             <Grid item xs={12} sm={12} md={12} lg={12}>
-                <CheckoutDeliveryDetails modifyDeliveryDetails={setDeliveryDetails} modifyIsAddressApproved={setDeliveryDetailsApproved} />
+                <DeliveryDetails modifyDeliveryDetails={setDeliveryDetails} modifyIsAddressApproved={setDeliveryDetailsApproved} />
             </Grid>
             <Grid item xs={12} sm={12} md={12} lg={12}>
-                <CheckoutCreditCardDetails modifyCardDetails={setCardDetails} modifyIsCardDetailsApproved={setCardDetailsApproved} />
+                <CreditCardDetails modifyCardDetails={setCardDetails} modifyIsCardDetailsApproved={setCardDetailsApproved} />
             </Grid>
         </Grid>
 

@@ -1,5 +1,5 @@
 import { Button, Grid } from "@mui/material"
-export default function CheckoutBuyNow({ onClick, disabled }) {
+export default function BuyNow({ onClick, disabled }) {
     return (
         <Grid container justifyContent="center">
             <Grid item xs={10} sm={10} md={10} lg={10}>
