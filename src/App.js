@@ -7,11 +7,11 @@ import SignIn from "./components/sign-in";
 import ForgotPassword from "./components/forgot-password";
 import Cart from "./components/cart";
 import Wishlist from "./components/wishlist";
-import Temp from "./components/temp";
 
 import {AuthProvider} from "./context/AuthContext";
 
 import {BrowserRouter as Router, Routes, Route} from "react-router-dom";
+import Collections from "./components/collections";
 import Checkout from "./components/checkout";
 
 function App() {
@@ -24,7 +24,7 @@ function App() {
                 <Route path="/forgot-password" element={<ForgotPassword/>}/>
                 <Route path="/cart" element={<Cart/>}/>
                 <Route path="/wishlist" element={<Wishlist/>}/>
-                <Route path="/categories" element={<Temp/>}/>
+                <Route path="/categories" element={<Collections/>}/>
                 <Route path="/checkout" element={<Checkout/>}/>
             </Routes>
         </AuthProvider>
