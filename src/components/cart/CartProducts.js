@@ -1,17 +1,20 @@
 import { useEffect, useState } from "react";
 
-import { Button, Container, Grid, List, Typography } from "@mui/material";
+import { Container, Grid, List } from "@mui/material";
 
-import CartProduct from "./CartProduct";
-import { getCartGames, getOrCreateCart } from "../../services";
+import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
+import { getCartGames, getOrCreateCart } from "../../services";
+import CartProduct from "./CartProduct";
+import CartTotal from "./CartTotal";
+import { calculateTotal } from "../../utils/cart-view-utils";
 
 export default function CartProducts() {
     const [games, setGames] = useState([]);
     const { getToken } = useAuth();
-    const [showedGamesLimit, setShowedGamesLimit] = useState(12);
+    const navigate = useNavigate();
     const [total, setTotal] = useState(0);
-    const [cart, setCart] = useState({games: []});
+    const [cart, setCart] = useState({ games: [] });
 
     useEffect(() => {
         async function fetchGames() {
@@ -26,15 +29,13 @@ export default function CartProducts() {
     }, [getToken]);
 
     useEffect(() => {
-        const gameIdToPrice = new Map(games.map(g => [g.id, g.price]));
-        const t = cart.games.map(g => g.amount * gameIdToPrice.get(g.id)).reduce((prev, curr) => prev + curr, 0);
-            setTotal(t);
-    }, [cart, games])
+        setTotal(calculateTotal(games, cart));
+    }, [cart, games]);
 
     const notifyCartProductUpdated = (updatedCartProduct) => {
-        
+
         var newProducts = cart.games.filter(g => g.id !== updatedCartProduct.id);
-        if (updatedCartProduct.amount === 0){
+        if (updatedCartProduct.amount === 0) {
             const updatedGames = games.filter(g => g.id !== updatedCartProduct.id);
             setGames(updatedGames);
         }
@@ -48,31 +49,23 @@ export default function CartProducts() {
     }
 
     const renderProducts = games.map((product) => {
-        const cartProduct = cart.games.filter(g=>g.id === product.id)[0];
+        const cartProduct = cart.games.filter(g => g.id === product.id)[0];
         return (
             <Grid item key={product.id} xs={2} sm={4} md={4} display="flex" flexDirection={'row'}
                 alignItems="center">
                 {<CartProduct cartProduct={cartProduct} product={product} notifyCartProductUpdated={notifyCartProductUpdated} />}
             </Grid>
         );
-    }).slice(0, showedGamesLimit);
-    const onCheckout = () => { };
+    });
+    const onCheckout = () => { navigate("/checkout") };
 
     return (
         <Container id="products" maxWidth={"lg"}>
-            <Grid container alignItems="center" justifyContent="center">
-                <Grid item xs={2} sm={4} md={4}>
-                    <Typography variant="h5" align="center">
-                        Total: {total.toFixed(2)}$
-                    </Typography>
-                </Grid>
-                <Grid item xs={2} sm={4} md={4} textAlign="center">
-                    <Button variant="contained" onClick={() => onCheckout()}>Checkout</Button>
-                </Grid>
-            </Grid>
+            <CartTotal onCheckoutClick={onCheckout} total={total} />
             <List>
                 {renderProducts}
             </List>
+            <CartTotal onCheckoutClick={onCheckout} total={total} />
         </Container>
     );
 }
