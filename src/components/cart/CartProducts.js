@@ -1,18 +1,18 @@
 import { useEffect, useState } from "react";
 
-import { Button, Card, CardContent, Container, Grid, List, Typography } from "@mui/material";
+import { Container, Grid, List } from "@mui/material";
 
-import CartProduct from "./CartProduct";
-import { getCartGames, getOrCreateCart } from "../../services";
-import { useAuth } from "../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../context/AuthContext";
+import { getCartGames, getOrCreateCart } from "../../services";
+import CartProduct from "./CartProduct";
 import CartTotal from "./CartTotal";
+import { calculateTotal } from "../../utils/cart-view-utils";
 
 export default function CartProducts() {
     const [games, setGames] = useState([]);
     const { getToken } = useAuth();
     const navigate = useNavigate();
-    const [showedGamesLimit, setShowedGamesLimit] = useState(12);
     const [total, setTotal] = useState(0);
     const [cart, setCart] = useState({ games: [] });
 
@@ -29,10 +29,8 @@ export default function CartProducts() {
     }, [getToken]);
 
     useEffect(() => {
-        const gameIdToPrice = new Map(games.map(g => [g.id, g.price]));
-        const t = cart.games.map(g => g.amount * gameIdToPrice.get(g.id)).reduce((prev, curr) => prev + curr, 0);
-        setTotal(t);
-    }, [cart, games])
+        setTotal(calculateTotal(games, cart));
+    }, [cart, games]);
 
     const notifyCartProductUpdated = (updatedCartProduct) => {
 
@@ -58,16 +56,16 @@ export default function CartProducts() {
                 {<CartProduct cartProduct={cartProduct} product={product} notifyCartProductUpdated={notifyCartProductUpdated} />}
             </Grid>
         );
-    }).slice(0, showedGamesLimit);
+    });
     const onCheckout = () => { navigate("/checkout") };
 
     return (
         <Container id="products" maxWidth={"lg"}>
-            <CartTotal onCheckoutClick={onCheckout} total={total}/>
+            <CartTotal onCheckoutClick={onCheckout} total={total} />
             <List>
                 {renderProducts}
             </List>
-            <CartTotal onCheckoutClick={onCheckout} total={total}/>
+            <CartTotal onCheckoutClick={onCheckout} total={total} />
         </Container>
     );
 }

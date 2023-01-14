@@ -1,12 +1,20 @@
-import { Typography, TextField } from "@mui/material"
-export default function InputFieldWithLabel({ label, onChangeSetter, validator}) {
+import { TextField } from "@mui/material";
+import { useState } from "react";
+export default function InputFieldWithLabel({ label, onChangeSetter, validator }) {
+
+    const [val, setVal] = useState("");
+
+    const isInvalid = () => (
+        val !== "" && validator()
+    )
+
+    const onValueChanged = (e) => {
+        onChangeSetter(e.target.value);
+        setVal(e.target.value);
+    }
+
     return (
-        <>
-            <Typography textAlign={"left"} variant="h5">
-                {label}
-            </Typography>
-            <TextField onChange={(e) => onChangeSetter(e.target.value)} error={validator()} sx={{mb: 1}}
-                id="email-address" type={"search"} fullWidth />
-        </>
+        <TextField onChange={onValueChanged} error={isInvalid()} sx={{ mb: 1 }}
+            type={"search"} fullWidth label={label} />
     )
 }

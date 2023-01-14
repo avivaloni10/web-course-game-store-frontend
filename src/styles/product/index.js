@@ -20,6 +20,14 @@ export const ProductImage = styled("img")(({src}) => ({
     padding: '10px',
 }));
 
+export const CheckoutProductImage = styled("img")(({src}) => ({
+    src: `url(${src})`,
+    width: "100%",
+    height: "100%",
+    background: Colors.light_gray,
+    padding: '5px',
+}));
+
 export const ProductActionButton = styled(IconButton)(() => ({
     background: Colors.white,
     margin: 4,

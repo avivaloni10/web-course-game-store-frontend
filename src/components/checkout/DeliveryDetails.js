@@ -1,5 +1,5 @@
+import { Card, CardContent, Typography } from "@mui/material";
 import { useCallback, useEffect, useState } from "react";
-import { Card, CardContent, Container, TextField, Typography } from "@mui/material";
 import InputFieldWithLabel from "./InputFieldWithLabel";
 
 function isInputInvalid(value) {
@@ -15,7 +15,6 @@ export default function DeliveryDetails({ modifyDeliveryDetails, modifyIsAddress
     const [city, setCity] = useState("");
     const [region, setRegion] = useState("");
     const [postcode, setPostcode] = useState("");
-    const country = "Israel";
     const [phone, setPhone] = useState("");
 
     const isPhoneInvalid = useCallback(() => {
@@ -46,21 +45,21 @@ export default function DeliveryDetails({ modifyDeliveryDetails, modifyIsAddress
             modifyIsAddressApproved(false);
             return;
         }
-        modifyDeliveryDetails({ name, street, city, region, postcode, phone, country });
+        modifyDeliveryDetails({ name, street, city, region, postcode, phone});
         modifyIsAddressApproved(true);
-    }, [name, street, city, region, postcode, phone, country, allFieldsValid, modifyDeliveryDetails, modifyIsAddressApproved])
+    }, [name, street, city, region, postcode, phone, allFieldsValid, modifyDeliveryDetails, modifyIsAddressApproved])
 
     return (
         <Card>
             <CardContent>
                 <Typography variant="h4" sx={{ mb: 3 }}>Delivery Details</Typography>
+                <Typography textAlign={"left"} variant="subtitle1" sx={{mb: 2}}>* IL shipping only</Typography>
                 <InputFieldWithLabel label={"Full Name"} onChangeSetter={setName} validator={isNameInvalid} />
                 <InputFieldWithLabel label={"Mobile"} onChangeSetter={setPhone} validator={isPhoneInvalid} />
                 <InputFieldWithLabel label={"Street"} onChangeSetter={setStreet} validator={isInputInvalid(street)} />
                 <InputFieldWithLabel label={"City"} onChangeSetter={setCity} validator={isInputInvalid(city)} />
                 <InputFieldWithLabel label={"Region"} onChangeSetter={setRegion} validator={isInputInvalid(region)} />
                 <InputFieldWithLabel label={"Postcode"} onChangeSetter={setPostcode} validator={isPostcodeInvalid} />
-                <Typography textAlign={"left"} variant="h5">Country: {country}</Typography>
             </CardContent>
         </Card>
     )
