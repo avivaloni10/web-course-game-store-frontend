@@ -1,4 +1,5 @@
 import * as React from 'react';
+import './index.css'
 
 import {ThemeProvider} from "@mui/system";
 import {Container, Stack} from "@mui/material";
@@ -8,151 +9,32 @@ import {AnimatedTree} from 'react-tree-graph';
 import 'react-tree-graph/dist/style.css'
 import Promotions from "../common/promotions";
 import Footer from "../common/footer";
+import {getGameCollections, searchGames} from "../../services";
+import {useEffect, useState} from "react";
 
 export default function Collections() {
-    const data = {
+    const [data, setData] = useState({
         name: 'Store',
-        children: [
-            {
-                name: 'Collection1',
-                children: [
-                    {
-                        name: 'Game1',
-                    },
-                    {
-                        name: 'Game2',
-                    },
-                    {
-                        name: 'Game3',
-                    },
-                    {
-                        name: 'Game4',
-                    },
-                    {
-                        name: 'Game5',
-                    },
-                    {
-                        name: 'Game6',
-                    },
-                ]
-            },
-            {
-                name: 'Collection2',
-                children: [
-                    {
-                        name: 'Game1',
-                    },
-                    {
-                        name: 'Game2',
-                    },
-                    {
-                        name: 'Game3',
-                    },
-                    {
-                        name: 'Game4',
-                    },
-                    {
-                        name: 'Game5',
-                    },
-                    {
-                        name: 'Game6',
-                    },
-                ]
-            },
-            {
-                name: 'Collection3',
-                children: [
-                    {
-                        name: 'Game1',
-                    },
-                    {
-                        name: 'Game2',
-                    },
-                    {
-                        name: 'Game3',
-                    },
-                    {
-                        name: 'Game4',
-                    },
-                    {
-                        name: 'Game5',
-                    },
-                    {
-                        name: 'Game6',
-                    },
-                ]
-            },
-            {
-                name: 'Collection4',
-                children: [
-                    {
-                        name: 'Game1',
-                    },
-                    {
-                        name: 'Game2',
-                    },
-                    {
-                        name: 'Game3',
-                    },
-                    {
-                        name: 'Game4',
-                    },
-                    {
-                        name: 'Game5',
-                    },
-                    {
-                        name: 'Game6',
-                    },
-                ]
-            },
-            {
-                name: 'Collection5',
-                children: [
-                    {
-                        name: 'Game1',
-                    },
-                    {
-                        name: 'Game2',
-                    },
-                    {
-                        name: 'Game3',
-                    },
-                    {
-                        name: 'Game4',
-                    },
-                    {
-                        name: 'Game5',
-                    },
-                    {
-                        name: 'Game6',
-                    },
-                ]
-            },
-            {
-                name: 'Collection6',
-                children: [
-                    {
-                        name: 'Game1',
-                    },
-                    {
-                        name: 'Game2',
-                    },
-                    {
-                        name: 'Game3',
-                    },
-                    {
-                        name: 'Game4',
-                    },
-                    {
-                        name: 'Game5',
-                    },
-                    {
-                        name: 'Game6',
-                    },
-                ]
-            },
-        ]
-    };
+        children: [],
+    });
+
+    useEffect(() => {
+        async function fetchGameCollections() {
+            let gameCollections = await getGameCollections()
+            gameCollections = ({
+                name: 'Store',
+                children: await Promise.all(gameCollections.map(async gameCollection => {
+                    console.log(gameCollection.games.join())
+                    gameCollection['children'] = await searchGames(gameCollection.games.join());
+                    return gameCollection;
+                })),
+            })
+            console.log(gameCollections)
+            setData(gameCollections);
+        }
+
+        fetchGameCollections();
+    }, [])
 
     return (
         <ThemeProvider theme={theme}>
@@ -162,7 +44,7 @@ export default function Collections() {
                     <Promotions/>
                     <AnimatedTree
                         data={data}
-                        margins={{top: 20, bottom: 20, left: 200, right: 200}}
+                        margins={{top: 20, bottom: 20, left: 100, right: 200}}
                         height={36 * 75}
                         width={3 * 500}
                         textProps={{x: -25, y: 25}}

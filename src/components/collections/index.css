@@ -1,0 +1,5 @@
+.node circle:hover {
+	fill: #d1adcc;
+	stroke: rgb(184, 37, 81);
+	stroke-width: 1.5px;
+}

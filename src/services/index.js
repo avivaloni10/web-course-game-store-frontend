@@ -1,12 +1,15 @@
 import instance from "./axios-instance";
 import * as cart from "./cart";
 import * as games from "./games";
+import * as gameCollections from "./game-collections";
 
 export const getGames = async () => {
   return (await instance.get("games")).data;
 };
 export const searchGames = games.searchGames;
 export const getGame = games.getGame;
+
+export const getGameCollections = gameCollections.getGameCollections;
 
 
 export const getHighestRatingGames = async () => {

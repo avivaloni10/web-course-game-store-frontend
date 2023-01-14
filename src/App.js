@@ -24,7 +24,7 @@ function App() {
                 <Route path="/forgot-password" element={<ForgotPassword/>}/>
                 <Route path="/cart" element={<Cart/>}/>
                 <Route path="/wishlist" element={<Wishlist/>}/>
-                <Route path="/categories" element={<Collections/>}/>
+                <Route path="/collections" element={<Collections/>}/>
                 <Route path="/checkout" element={<Checkout/>}/>
             </Routes>
         </AuthProvider>
