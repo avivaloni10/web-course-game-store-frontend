@@ -9,9 +9,8 @@ import {getOrCreateWishlist} from "../../../services";
 export default function Products({games, singleProductOverride}) {
     const {getToken} = useAuth();
 
-    const [showedGamesLimit, setShowedGamesLimit] = useState(12);
     const [wishlist, setWishlist] = useState({games: []});
-    const SingleProductView = singleProductOverride || SingleProduct
+    const SingleProductView = singleProductOverride || SingleProduct;
 
     useEffect(() => {
         async function fetchWishlist() {
@@ -31,7 +30,7 @@ export default function Products({games, singleProductOverride}) {
                     {<SingleProductView product={product} wishlist={wishlist}/>}
                 </Grid>
             );
-        }).slice(0, showedGamesLimit);
+        });
     }
 
     return (

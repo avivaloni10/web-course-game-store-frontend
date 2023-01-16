@@ -39,7 +39,7 @@ export default function Wishlist() {
                 sx={{margin: `20px 4px 10px 4px`}}
                 columns={{xs: 4, sm: 8, md: 12}}
             >
-                <Button sx={{mt: 4, mb: 4}} variant="contained" onClick={() => emptyWishlist()}>Empty Wishlist</Button>
+                <Button sx={{mt: 4, mb: 4}} variant="contained" onClick={emptyWishlist}>Empty Wishlist</Button>
             </Grid>
         </HomePage>
     );
