@@ -19,6 +19,7 @@ export const getHighestRatingGames = async () => {
 
 export const getOrCreateWishlist = wishlist.getOrCreateWishlist;
 export const updateWishlist = wishlist.updateWishlist;
+export const deleteWishlist = wishlist.deleteWishlist;
 
 export const getWishlistGames = async (authToken) => {
   const wishlist = await getOrCreateWishlist(authToken);
