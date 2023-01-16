@@ -32,3 +32,12 @@ export const updateWishlist = async (authToken, wishlist) => {
         headers: {Authorization: authToken},
     });
 };
+
+
+export const deleteWishlist = async (authToken) => {
+    const response = await instance.delete(`wishlists`, {headers: {Authorization: authToken}});
+    if (response.status === 200) {
+        return;
+    }
+    throw new Error("Got unexpected error while deleting wishlist");
+};
