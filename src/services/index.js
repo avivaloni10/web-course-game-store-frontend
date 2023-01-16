@@ -28,7 +28,6 @@ export const getGame = games.getGame;
 
 export const getGameCollections = gameCollections.getGameCollections;
 
-
 export const getHighestRatingGames = async (page, size, ids, name, summary) => {
   let suffix = "";
   if (page) {
@@ -47,6 +46,10 @@ export const getHighestRatingGames = async (page, size, ids, name, summary) => {
     suffix += "&summary=" + summary;
   }
   return (await instance.get("games?sort=-totalRating" + suffix)).data;
+};
+
+export const getGamesForPromotions = async () => {
+  return (await instance.get("gamesForPromotions")).data;
 };
 
 export const getOrCreateWishlist = wishlist.getOrCreateWishlist;
