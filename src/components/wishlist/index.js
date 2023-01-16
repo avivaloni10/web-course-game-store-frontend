@@ -31,7 +31,7 @@ export default function Wishlist() {
 
     return (
         <HomePage title="Wishlist" hideBanner>
-            <Products games={wishlist.children}/>
+            <Products products={wishlist.children}/>
             <Grid
                 container
                 spacing={{xs: 2, md: 3}}

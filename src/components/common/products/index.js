@@ -6,7 +6,7 @@ import SingleProduct from "./SingleProduct";
 import {useAuth} from "../../../context/AuthContext";
 import {getOrCreateWishlist} from "../../../services";
 
-export default function Products({games, singleProductOverride}) {
+export default function Products({products, singleProductOverride}) {
     const {getToken} = useAuth();
 
     const [wishlist, setWishlist] = useState({games: []});
@@ -22,8 +22,7 @@ export default function Products({games, singleProductOverride}) {
     }, [getToken]);
 
     const renderProducts = () => {
-        console.log(games);
-        return games.map((product) => {
+        return products.map((product) => {
             return (
                 <Grid item key={product.id} xs={2} sm={4} md={4} display="flex" flexDirection={'column'}
                       alignItems="center">
