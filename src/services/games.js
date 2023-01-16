@@ -1,7 +1,7 @@
 import instance from "./axios-instance";
 
 export const searchGames = async (ids, name, description) => {
-    let url = "games?name=" + name + "&summary=" + description;
+    let url = "games?name=" + (name ? name : "") + "&summary=" + (description ? description : "");
     if (ids !== "") {
         url += "&id=" + ids;
     }
