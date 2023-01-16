@@ -1,5 +1,6 @@
 import instance from "./axios-instance";
 import * as cart from "./cart";
+import * as wishlist from "./wishlist";
 import * as games from "./games";
 
 export const getGames = async () => {
@@ -12,6 +13,16 @@ export const getGame = games.getGame;
 export const getHighestRatingGames = async () => {
   return (await instance.get("games?sort=-totalRating")).data;
 };
+
+export const getOrCreateWishlist = wishlist.getOrCreateWishlist;
+export const updateWishlist = wishlist.updateWishlist;
+
+export const getWishlistGames = async (authToken) => {
+  const wishlist = await getOrCreateWishlist(authToken);
+  const gameIds = wishlist.games.map(g => g.id).join();
+  return (await instance.get(`games?id=${gameIds}`)).data;
+}
+
 
 export const getOrCreateCart = cart.getOrCreateCart;
 export const updateCart = cart.updateCart;
