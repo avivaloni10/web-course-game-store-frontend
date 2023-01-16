@@ -4,16 +4,14 @@ import {Slide} from "@mui/material";
 import {Box} from "@mui/system";
 
 import {MessageText, PromotionsContainer} from "../../../styles/promotions";
+import {getGamesForPromotions} from "../../../services";
 
-const messages = [
-    "20% off on your first order!",
-    "Summer sale starts now, visit our store.",
-    "New games every week!",
-];
 export default function Promotions() {
     const containerRef = useRef();
+    const [messages, setMessages] = useState([]);
     const [show, setShow] = useState(true);
     const [messageIndex, setMessageIndex] = useState(0);
+
     useEffect(() => {
         setTimeout(() => {
             setShow(false);
@@ -31,6 +29,16 @@ export default function Promotions() {
         return () => {
             clearInterval(intervalId);
         };
+    }, [messages]);
+
+    useEffect(() => {
+        async function fetchGamesForPromotions() {
+            setMessages((await getGamesForPromotions()).map(gameForPromotion =>
+                "We got " + gameForPromotion.count + " different " + gameForPromotion._id + " stars games in stock!"
+            ));
+        }
+
+        fetchGamesForPromotions();
     }, []);
 
     return (
