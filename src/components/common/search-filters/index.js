@@ -15,20 +15,11 @@ const SearchFilter = styled(TextField)(({theme}) => ({
     },
 }));
 
-export default function SearchFilters({setGames}) {
-    const [filterById, setFilterById] = useState("");
-    const [filterByName, setFilterByName] = useState("");
-    const [filterByDescription, setFilterByDescription] = useState("");
-
-    useEffect(() => {
-        async function filterGames() {
-            const gs = await searchGames(filterById, filterByName, filterByDescription)
-            console.log("gs:", gs)
-            setGames(gs);
-        }
-        filterGames();
-    }, [filterById, filterByName, filterByDescription]);
-
+export default function SearchFilters({
+                                          filterName1, filterName2, filterName3,
+                                          filter1, filter2, filter3,
+                                          setFilter1, setFilter2, setFilter3
+                                      }) {
     return (
         <Container id="products">
             <Grid
@@ -38,20 +29,20 @@ export default function SearchFilters({setGames}) {
                 sx={{margin: `20px 4px 20px 4px`}}
                 columns={{xs: 4, sm: 8, md: 12}}
             >
-                <Grid item key="filter-by-id" xs={2} sm={4} md={4} display="flex" flexDirection={'column'}
+                <Grid item key="filter1" xs={2} sm={4} md={4} display="flex" flexDirection={'column'}
                       alignItems="center">
-                    {<SearchFilter color="primary" label="Filter by id" variant="standard"
-                                   value={filterById} onChange={(e) => setFilterById(e.target.value)}/>}
+                    {<SearchFilter color="primary" label={filterName1} variant="standard"
+                                   value={filter1} onChange={(e) => setFilter1(e.target.value)}/>}
                 </Grid>
-                <Grid item key="filter-by-name" xs={2} sm={4} md={4} display="flex" flexDirection={'column'}
+                <Grid item key="filter2" xs={2} sm={4} md={4} display="flex" flexDirection={'column'}
                       alignItems="center">
-                    {<SearchFilter color="primary" label="Filter by name" variant="standard"
-                                   value={filterByName} onChange={(e) => setFilterByName(e.target.value)}/>}
+                    {<SearchFilter color="primary" label={filterName2} variant="standard"
+                                   value={filter2} onChange={(e) => setFilter2(e.target.value)}/>}
                 </Grid>
-                <Grid item key="filter-by-description" xs={2} sm={4} md={4} display="flex" flexDirection={'column'}
+                <Grid item key="filter3" xs={2} sm={4} md={4} display="flex" flexDirection={'column'}
                       alignItems="center">
-                    {<SearchFilter color="primary" label="Filter by description" variant="standard"
-                                   value={filterByDescription} onChange={(e) => setFilterByDescription(e.target.value)}/>}
+                    {<SearchFilter color="primary" label={filterName3} variant="standard"
+                                   value={filter3} onChange={(e) => setFilter3(e.target.value)}/>}
                 </Grid>
             </Grid>
         </Container>

@@ -1,13 +1,14 @@
 import HomePage from "../page-templates/home-page";
 import Products from "../common/products";
-import {getHighestRatingGames, searchGames} from "../../services";
+import {getHighestRatingGames, getPlatforms} from "../../services";
 import SearchFilters from "../common/search-filters";
 import {useEffect, useState} from "react";
 import {Button, Grid} from "@mui/material";
+import SinglePlatform from "./SinglePlatform";
 
-export default function Dashboard() {
+export default function Platforms() {
     const PAGE_SIZE = 12;
-    const [games, setGames] = useState([]);
+    const [platforms, setPlatforms] = useState([]);
     const [page, setPage] = useState(0);
 
     const [filter1, setFilter1] = useState("");
@@ -15,17 +16,17 @@ export default function Dashboard() {
     const [filter3, setFilter3] = useState("");
 
     useEffect(() => {
-        async function fetchGames() {
-            setGames(await getHighestRatingGames(page, PAGE_SIZE, filter1, filter2, filter3));
+        async function fetchPlatforms() {
+            setPlatforms(await getPlatforms(page, PAGE_SIZE, filter1, filter2, filter3));
             setPage(page + 1);
         }
 
-        fetchGames();
+        fetchPlatforms();
     }, []);
 
     useEffect(() => {
         async function filterProducts() {
-            setGames(await getHighestRatingGames(0, PAGE_SIZE, filter1, filter2, filter3));
+            setPlatforms(await getPlatforms(0, PAGE_SIZE, filter1, filter2, filter3));
             setPage(1);
         }
 
@@ -33,16 +34,16 @@ export default function Dashboard() {
     }, [filter1, filter2, filter3]);
 
     const loadMore = async () => {
-        setGames(games.concat(await getHighestRatingGames(page, PAGE_SIZE, filter1, filter2, filter3)));
+        setPlatforms(platforms.concat(await getPlatforms(page, PAGE_SIZE, filter1, filter2, filter3)));
         setPage(page + 1);
     }
 
     return (
-        <HomePage title="Our Top Products">
-            <SearchFilters filterName1="id" filterName2="name" filterName3="summary"
+        <HomePage title="Our Platforms">
+            <SearchFilters filterName1="name" filterName2="alternative name" filterName3="abbreviation"
                            filter1={filter1} filter2={filter2} filter3={filter3}
                            setFilter1={setFilter1} setFilter2={setFilter2} setFilter3={setFilter3}/>
-            <Products products={games}/>
+            <Products products={platforms} singleProductOverride={SinglePlatform}/>
             <Grid
                 container
                 spacing={{xs: 2, md: 3}}

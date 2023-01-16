@@ -4,8 +4,24 @@ import * as wishlist from "./wishlist";
 import * as games from "./games";
 import * as gameCollections from "./game-collections";
 
-export const getGames = async () => {
-  return (await instance.get("games")).data;
+export const getPlatforms = async (page, size, name, alternativeName, abbreviation) => {
+  let suffix = "";
+  if (page) {
+    suffix += "&page=" + page;
+  }
+  if (size) {
+    suffix += "&size=" + size;
+  }
+  if (name) {
+    suffix += "&name=" + name;
+  }
+  if (alternativeName) {
+    suffix += "&alternativeName=" + alternativeName;
+  }
+  if (abbreviation) {
+    suffix += "&abbreviation=" + abbreviation;
+  }
+  return (await instance.get("platforms?" + suffix)).data;
 };
 export const searchGames = games.searchGames;
 export const getGame = games.getGame;
@@ -13,13 +29,22 @@ export const getGame = games.getGame;
 export const getGameCollections = gameCollections.getGameCollections;
 
 
-export const getHighestRatingGames = async (page, size) => {
+export const getHighestRatingGames = async (page, size, ids, name, summary) => {
   let suffix = "";
   if (page) {
     suffix += "&page=" + page;
   }
   if (size) {
     suffix += "&size=" + size;
+  }
+  if (ids) {
+    suffix += "&ids=" + ids;
+  }
+  if (name) {
+    suffix += "&name=" + name;
+  }
+  if (summary) {
+    suffix += "&summary=" + summary;
   }
   return (await instance.get("games?sort=-totalRating" + suffix)).data;
 };
