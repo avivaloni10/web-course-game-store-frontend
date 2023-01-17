@@ -28,9 +28,9 @@ function DetailsFooter({ total }) {
     )
     return (
         <Grid container>
-            <LabelWithValue label={"Subtotal"} value={total} />
+            <LabelWithValue label={"Subtotal"} value={total.toFixed(2)} />
             <LabelWithValue label={"Delivery"} value={"free"} />
-            <LabelWithValue label={"Total"} value={total} />
+            <LabelWithValue label={"Total"} value={total.toFixed(2)} />
         </Grid>
     )
 }

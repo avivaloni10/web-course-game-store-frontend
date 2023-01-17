@@ -13,7 +13,7 @@ export default function Appbar() {
             <AppbarHeader variant="h4">Aloni Games</AppbarHeader>
             <AppbarList type="row">
                 <AppbarListItemText primary="Home" onClick={() => navigate("/")}/>
-                <AppbarListItemText primary="Categories" onClick={() => navigate("/categories")}/>
+                <AppbarListItemText primary="My Orders" onClick={() => navigate("/orders")}/>
                 <AppbarListItemText primary="Products" onClick={() => smoothScrollToId('products')}/>
                 <AppbarListItemText primary="About us" onClick={() => smoothScrollToId('footer')}/>
                 <AppbarListItemText primary="Contact us" onClick={() => smoothScrollToId('footer')}/>

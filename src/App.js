@@ -13,6 +13,7 @@ import {AuthProvider} from "./context/AuthContext";
 
 import {BrowserRouter as Router, Routes, Route} from "react-router-dom";
 import Checkout from "./components/checkout";
+import Orders from "./components/orders";
 
 function App() {
     return <Router>
@@ -24,7 +25,7 @@ function App() {
                 <Route path="/forgot-password" element={<ForgotPassword/>}/>
                 <Route path="/cart" element={<Cart/>}/>
                 <Route path="/wishlist" element={<Wishlist/>}/>
-                <Route path="/categories" element={<Temp/>}/>
+                <Route path="/orders" element={<Orders/>}/>
                 <Route path="/checkout" element={<Checkout/>}/>
             </Routes>
         </AuthProvider>

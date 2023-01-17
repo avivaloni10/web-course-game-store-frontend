@@ -10,52 +10,52 @@ function isInputInvalid(value) {
 
 export default function DeliveryDetails({ modifyDeliveryDetails, modifyIsAddressApproved }) {
 
-    const [name, setName] = useState("");
+    const [fullName, setFullName] = useState("");
     const [street, setStreet] = useState("");
     const [city, setCity] = useState("");
     const [region, setRegion] = useState("");
     const [postcode, setPostcode] = useState("");
-    const [phone, setPhone] = useState("");
+    const [mobile, setMobile] = useState("");
 
-    const isPhoneInvalid = useCallback(() => {
-        return !(/^[0-9]{10}$/.test(phone))
-    }, [phone]);
+    const isMobileInvalid = useCallback(() => {
+        return !(/^[0-9]{10}$/.test(mobile))
+    }, [mobile]);
 
     const isPostcodeInvalid = useCallback(() => {
         return !(/^[0-9]{7}$/.test(postcode))
     }, [postcode]);
 
-    const isNameInvalid = useCallback(() => {
-        return name.trim().length < 4 || !name.trim().includes(" ");
-    }, [name])
+    const isFullNameInvalid = useCallback(() => {
+        return fullName.trim().length < 4 || !fullName.trim().includes(" ");
+    }, [fullName])
 
     const allFieldsValid = useCallback(() => {
         return (
-            !isNameInvalid() &&
-            !isPhoneInvalid() &&
+            !isFullNameInvalid() &&
+            !isMobileInvalid() &&
             !isInputInvalid(street)() &&
             !isInputInvalid(city)() &&
             !isInputInvalid(region)() &&
             !isPostcodeInvalid()
         );
-    }, [street, city, region, isNameInvalid, isPhoneInvalid, isPostcodeInvalid]);
+    }, [street, city, region, isFullNameInvalid, isMobileInvalid, isPostcodeInvalid]);
 
     useEffect(() => {
         if (!allFieldsValid()) {
             modifyIsAddressApproved(false);
             return;
         }
-        modifyDeliveryDetails({ name, street, city, region, postcode, phone});
+        modifyDeliveryDetails({ fullName, street, city, region, postcode, mobile});
         modifyIsAddressApproved(true);
-    }, [name, street, city, region, postcode, phone, allFieldsValid, modifyDeliveryDetails, modifyIsAddressApproved])
+    }, [fullName, street, city, region, postcode, mobile, allFieldsValid, modifyDeliveryDetails, modifyIsAddressApproved])
 
     return (
         <Card>
             <CardContent>
                 <Typography variant="h4" sx={{ mb: 3 }}>Delivery Details</Typography>
                 <Typography textAlign={"left"} variant="subtitle1" sx={{mb: 2}}>* IL shipping only</Typography>
-                <InputFieldWithLabel label={"Full Name"} onChangeSetter={setName} validator={isNameInvalid} />
-                <InputFieldWithLabel label={"Mobile"} onChangeSetter={setPhone} validator={isPhoneInvalid} />
+                <InputFieldWithLabel label={"Full Name"} onChangeSetter={setFullName} validator={isFullNameInvalid} />
+                <InputFieldWithLabel label={"Mobile"} onChangeSetter={setMobile} validator={isMobileInvalid} />
                 <InputFieldWithLabel label={"Street"} onChangeSetter={setStreet} validator={isInputInvalid(street)} />
                 <InputFieldWithLabel label={"City"} onChangeSetter={setCity} validator={isInputInvalid(city)} />
                 <InputFieldWithLabel label={"Region"} onChangeSetter={setRegion} validator={isInputInvalid(region)} />
