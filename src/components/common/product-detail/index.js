@@ -15,6 +15,8 @@ import {updateCartProductAmount} from "../../../utils";
 import {useEffect, useState} from "react";
 import {getGame} from "../../../services";
 
+import {io} from "socket.io-client"
+
 function SlideTransition(props) {
     return <Slide direction="down" {...props} />;
 }
@@ -33,6 +35,7 @@ const ProductDetailInfoWrapper = styled(Box)(() => ({
 
 export default function ProductDetail({open, onClose, product, initialValue, setNewCartProductAmount}) {
     const [game, setGame] = useState(product);
+    const [watchingCounter, setWatchingCounter] = useState(1);
     const {isUserSignedIn, getToken} = useAuth();
     const navigate = useNavigate()
 
@@ -42,7 +45,29 @@ export default function ProductDetail({open, onClose, product, initialValue, set
         }
 
         fetchGame();
-    }, [])
+    }, []);
+
+    useEffect(() => {
+        const socket = io("http://localhost:3002");
+
+        socket.on('connect', () => {
+            socket.emit("connectGameId", game.id);
+        });
+
+        socket.on('disconnect', () => {
+            socket.emit("disconnectGameId", game.id);
+            socket.disconnect();
+        });
+
+        socket.on(game.id, (arg) => {
+            setWatchingCounter(arg);
+        });
+
+        return () => {
+            socket.emit("disconnectGameId", game.id);
+            socket.disconnect();
+        }
+    }, []);
 
     const onAddToCart = async (product) => {
         if (!isUserSignedIn()) {
@@ -102,9 +127,19 @@ export default function ProductDetail({open, onClose, product, initialValue, set
                             alignItems="center"
                             justifyContent="space-between"
                         >
-                            <ProductCount min={1} max={Math.min(product.availability, 9)} amountSetter={onSetAmountToAdd}
+                            <ProductCount min={1} max={Math.min(product.availability, 9)}
+                                          amountSetter={onSetAmountToAdd}
                                           initialValue={amountToSet}/>
                             <Button variant="contained" onClick={() => onAddToCart(product)}>Update Cart</Button>
+                        </Box>
+                        <Box
+                            display="flex"
+                            alignItems="center"
+                            sx={{mt: 4}}
+                        >
+                            <Typography variant="body">
+                                {watchingCounter} people watching this game right now.
+                            </Typography>
                         </Box>
                         <Box
                             display="flex"
