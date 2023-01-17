@@ -7,13 +7,14 @@ import SignIn from "./components/sign-in";
 import ForgotPassword from "./components/forgot-password";
 import Cart from "./components/cart";
 import Wishlist from "./components/wishlist";
-import Temp from "./components/temp";
 
 import {AuthProvider} from "./context/AuthContext";
 
 import {BrowserRouter as Router, Routes, Route} from "react-router-dom";
+import Collections from "./components/collections";
 import Checkout from "./components/checkout";
 import Orders from "./components/orders";
+import Platforms from "./components/platforms";
 
 function App() {
     return <Router>
@@ -26,6 +27,8 @@ function App() {
                 <Route path="/cart" element={<Cart/>}/>
                 <Route path="/wishlist" element={<Wishlist/>}/>
                 <Route path="/orders" element={<Orders/>}/>
+                <Route path="/collections" element={<Collections/>}/>
+                <Route path="/platforms" element={<Platforms/>}/>
                 <Route path="/checkout" element={<Checkout/>}/>
             </Routes>
         </AuthProvider>

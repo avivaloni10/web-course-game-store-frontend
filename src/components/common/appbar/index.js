@@ -15,6 +15,8 @@ export default function Appbar() {
                 <AppbarListItemText primary="Home" onClick={() => navigate("/")}/>
                 <AppbarListItemText primary="My Orders" onClick={() => navigate("/orders")}/>
                 <AppbarListItemText primary="Products" onClick={() => smoothScrollToId('products')}/>
+                <AppbarListItemText primary="Collections" onClick={() => navigate("/collections")}/>
+                <AppbarListItemText primary="Platforms" onClick={() => navigate("/platforms")}/>
                 <AppbarListItemText primary="About us" onClick={() => smoothScrollToId('footer')}/>
                 <AppbarListItemText primary="Contact us" onClick={() => smoothScrollToId('footer')}/>
             </AppbarList>
