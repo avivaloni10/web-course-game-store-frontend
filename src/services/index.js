@@ -63,16 +63,6 @@ export const getWishlistGames = async (authToken) => {
 }
 
 
-export const getOrCreateWishlist = wishlist.getOrCreateWishlist;
-export const updateWishlist = wishlist.updateWishlist;
-
-export const getWishlistGames = async (authToken) => {
-  const wishlist = await getOrCreateWishlist(authToken);
-  const gameIds = wishlist.games.map(g => g.id).join();
-  return (await instance.get(`games?id=${gameIds}`)).data;
-}
-
-
 export const getOrCreateCart = cart.getOrCreateCart;
 export const updateCart = cart.updateCart;
 export const deleteCart = cart.deleteCart;
