@@ -1,17 +1,20 @@
-import {useState} from "react";
+import { useState } from "react";
 
-import {IconButton, Typography} from "@mui/material";
-import {Box} from "@mui/system";
+import { IconButton, Typography } from "@mui/material";
+import { Box } from "@mui/system";
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from "@mui/icons-material/Remove";
 
-import {Colors} from "../../../styles/theme";
+import { Colors } from "../../../styles/theme";
 
-import {defineBound} from "../../../utils";
+import { defineBound } from "../../../utils";
 
-export default function ProductCount({min, max, amountSetter, initialValue}) {
+export default function ProductCount({ min, max, amountSetter, initialValue }) {
+    if (max === 0) {
+        min = 0;
+    }
     const limitItemCount = defineBound(min, max);
-    const [value, setValue] = useState(initialValue || 1);
+    const [value, setValue] = useState(max === 0 ? 0 : initialValue || 1);
 
     const onAmountChanged = (newAmount) => {
         const limitedAmount = limitItemCount(newAmount);
@@ -26,9 +29,9 @@ export default function ProductCount({min, max, amountSetter, initialValue}) {
                     borderRadius: 0,
                     background: `${Colors.secondary}`,
                 }}
-                onClick={() => {onAmountChanged(value - 1); }}
+                onClick={() => { onAmountChanged(value - 1); }}
             >
-                <RemoveIcon/>
+                <RemoveIcon />
             </IconButton>
             <Typography
                 variant="h6"
@@ -46,7 +49,7 @@ export default function ProductCount({min, max, amountSetter, initialValue}) {
                 }}
                 onClick={() => onAmountChanged(value + 1)}
             >
-                <AddIcon/>
+                <AddIcon />
             </IconButton>
         </Box>
     );

@@ -94,7 +94,7 @@ export default function SingleProduct({product, wishlist}) {
                     </Tooltip>
                 </ProductFavButton>
                 {(showOptions) && (
-                    <ProductAddToCart show={showOptions} variant="contained" onClick={() => onAddToCart(product)}>
+                    <ProductAddToCart show={showOptions} variant="contained" onClick={() => onAddToCart(product)} disabled={product.availability === 0}>
                         Add to cart
                     </ProductAddToCart>
                 )}

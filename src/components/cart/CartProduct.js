@@ -15,6 +15,7 @@ import "./CartProduct.css";
 import { CartProductMetaWrapper } from "../../styles/cart";
 import DeleteIcon from '@mui/icons-material/Delete';
 import { Button } from "@mui/material";
+import { Colors } from "../../styles/theme";
 
 export default function CartProduct({ cartProduct, product, notifyCartProductUpdated }) {
     const { getToken } = useAuth();
