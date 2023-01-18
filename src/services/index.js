@@ -3,6 +3,7 @@ import * as cart from "./cart";
 import * as wishlist from "./wishlist";
 import * as games from "./games";
 import * as gameCollections from "./game-collections";
+import * as orders from "./order";
 
 export const getPlatforms = async (page, size, name, alternativeName, abbreviation) => {
   let suffix = "";
@@ -67,9 +68,17 @@ export const getOrCreateCart = cart.getOrCreateCart;
 export const updateCart = cart.updateCart;
 export const deleteCart = cart.deleteCart;
 
+export const getGames = async (gameIds) => {
+  if (!gameIds) return [];
+  return (await instance.get(`games?id=${gameIds}`)).data;
+}
+
 export const getCartGames = async (authToken) => {
   const cart = await getOrCreateCart(authToken);
   const gameIds = cart.games.map(g => g.id).join();
-  if(!gameIds) return [];
-  return (await instance.get(`games?id=${gameIds}`)).data;
+  return await getGames(gameIds);
 }
+
+export const getOrders = orders.getOrders;
+export const createOrder = orders.createOrder;
+export const deleteOrder = orders.deleteOrder;

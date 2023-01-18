@@ -1,5 +1,5 @@
 import { Grid, List, Typography } from "@mui/material";
-import { CheckoutProductImage } from "../../styles/product";
+import { CheckoutProductImage } from "../../../styles/product";
 
 function CartGames({ cart, games }) {
     const gameScale = 400;

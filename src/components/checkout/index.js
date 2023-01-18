@@ -7,7 +7,7 @@ import UserDetails from "./UserDetails";
 import { useAuth } from "../../context/AuthContext";
 import { getOrCreateCart, getCartGames, deleteCart } from "../../services";
 import { calculateTotal } from "../../utils/cart-view-utils";
-import { createOrder } from "../../services/order";
+import { createOrder } from "../../services";
 import { useNavigate } from "react-router-dom";
 
 export default function Checkout() {
@@ -51,7 +51,7 @@ export default function Checkout() {
         }
         const { result, error } = await createOrder(token, objectDetails);
         if (error !== null) {
-            setSnackbarMessage("Could not place the order. Please try again later.");
+            setSnackbarMessage(error);
             console.log(error);
             setIsErrorSnackbarOpen(true);
             return;
