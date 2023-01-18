@@ -82,3 +82,4 @@ export const getCartGames = async (authToken) => {
 export const getOrders = orders.getOrders;
 export const createOrder = orders.createOrder;
 export const deleteOrder = orders.deleteOrder;
+export const getOrdersWithSpends = orders.getOrdersWithSpends;
