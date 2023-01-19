@@ -59,7 +59,7 @@ export default function SingleOrder({ order, onDeletePressed }) {
     }
 
     const OrderTotal = () => {
-        const total = order.games.reduce((total, game) => total + game.buyPrice, 0);
+        const total = order.games.reduce((total, game) => total + (game.buyPrice * game.amount), 0);
         return (
             <>
                 <Typography variant='h5'>
