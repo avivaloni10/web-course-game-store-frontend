@@ -31,3 +31,11 @@ export const deleteOrder = async (authToken, orderId) => {
     }
     return null;
 }
+
+export const getOrdersWithSpends = async (authToken) => {
+    try {
+        return { result: await (await instance.get(`orders/total`, { headers: { Authorization: authToken } })).data, error: null };
+    } catch (err) {
+        return { result: null, error: "Could not Fetch Orders summary" }
+    }
+}

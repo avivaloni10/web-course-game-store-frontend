@@ -1,8 +1,10 @@
-import { List, Snackbar, Alert } from "@mui/material";
+import { List, Snackbar, Alert, Card, CardContent, Grid, Typography } from "@mui/material";
+import { Container } from "@mui/system";
 import { useEffect, useState } from "react";
 import { useAuth } from "../../context/AuthContext";
 import { deleteOrder, getOrders } from "../../services";
 import HomePage from "../page-templates/home-page";
+import OrdersWithSpends from "./OrdersWithSpends";
 import SingleOrder from "./SingleOrder";
 
 export default function Orders() {
@@ -40,8 +42,16 @@ export default function Orders() {
         ))
     )
 
+    const notifySummaryFetchFailed = (error) => {
+        setSnackbarMessage(error);
+        setIsErrorSnackbarOpen(true);
+    }
+
     return (
         <HomePage hideBanner>
+            <Grid container direction="column" alignItems="center" justify="center">
+                <OrdersWithSpends notifySummaryFetchFailed={notifySummaryFetchFailed} />
+            </Grid>
             <List>
                 <Orders />
             </List>
